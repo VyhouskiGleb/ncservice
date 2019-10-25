@@ -1,0 +1,8 @@
+{
+    "type"      : "mysql",
+    "database"  : "microservices",
+    "host"      : "localhost",
+    "user"      : "root",
+    "password"  : "root",
+    "port"      : "8006"
+}
