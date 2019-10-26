@@ -1,0 +1,14 @@
+[
+    {
+        "rote"          : "/",
+        "method"        : "get",
+        "controller"    : "indexController",
+        "permission"    : "user|admin"
+    },
+    {
+        "rote"          : "/api/login",
+        "method"        : "post",
+        "controller"    : "loginController",
+        "permission"    : "user|admin"
+    }
+]
