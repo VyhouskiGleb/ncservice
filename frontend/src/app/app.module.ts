@@ -1,42 +1,57 @@
-import { BrowserModule } from "@angular/platform-browser";
-import { NgModule } from "@angular/core";
-import { BsDropdownModule } from "ngx-bootstrap/dropdown";
-import { TooltipModule } from "ngx-bootstrap/tooltip";
-import { ModalModule } from "ngx-bootstrap/modal";
-import { FormsModule } from "@angular/forms";
+import { BrowserModule } from '@angular/platform-browser';
+import { NgModule } from '@angular/core';
+import { RouterModule, Routes } from '@angular/router';
+import { AppComponent } from './app.component';
+import { NavigationComponent } from './navigation/navigation.component';
+import { MainComponent } from './main/main.component';
+import { LoginComponent } from './login/login.component';
+import { ContentComponent } from './content/content.component';
+import { LibraryComponent } from './content/library/library.component';
+import { HirelistComponent } from './content/hirelist/hirelist.component';
+import { MoviecardComponent } from './content/hirelist/moviecard/moviecard.component';
+import { BtnComponent } from './common/btn/btn.component';
+import { SearchfldComponent } from './common/searchfld/searchfld.component';
+import { FormsModule } from '@angular/forms';
+import { HistoryComponent } from './history/history.component';
+import { MovecardmodalComponent } from './content/hirelist/movecardmodal/movecardmodal.component';
+import { TabsDirective } from './common/tabs.directive';
+import { YoutubeComponent } from './common/youtube/youtube.component';
 
-import { AppComponent } from "./app.component";
-import {HttpClientModule} from "@angular/common/http";
-import {Ng4LoadingSpinnerModule} from "ng4-loading-spinner";
-import {RouterModule, Routes} from "@angular/router";
-import {BillingDetailsViewComponent} from "./modules/layout/components/billing-details/billing-details-view.component";
-import {NotFoundComponent} from "./modules/layout/components/404/not-found.component";
-import {LayoutModule} from "./modules/layout/layout.module";
-import {HomeComponent} from "./modules/layout/components/home/home.component";
+import { MoviesService } from './services/movies.service';
 
 const appRoutes: Routes = [
-  {path: "", component: HomeComponent},
-  {path: "home", component: HomeComponent},
-  {path: "billing-details/:id", component: BillingDetailsViewComponent},
-  {path: "**", component: NotFoundComponent}
+  { path: '', component: MainComponent, data: {type: 'app'} },
+  { path: 'login', component: LoginComponent, data: {type: 'public'} },
+  { path: 'history', component: HistoryComponent, data: {type: 'app'} },
+  { path: '**', component: AppComponent, data: {type: 'app'} }
 ];
 
 @NgModule({
   declarations: [
-    AppComponent
+    AppComponent,
+    NavigationComponent,
+    MainComponent,
+    LoginComponent,
+    ContentComponent,
+    LibraryComponent,
+    HirelistComponent,
+    MoviecardComponent,
+    BtnComponent,
+    SearchfldComponent,
+    HistoryComponent,
+    MovecardmodalComponent,
+    TabsDirective,
+    YoutubeComponent
   ],
   imports: [
+    RouterModule.forRoot(
+      appRoutes,
+      { enableTracing: false } // <-- debugging purposes only
+    ),
     BrowserModule,
-    FormsModule,
-    LayoutModule,
-    HttpClientModule,
-    Ng4LoadingSpinnerModule.forRoot(),
-    BsDropdownModule.forRoot(),
-    TooltipModule.forRoot(),
-    ModalModule.forRoot(),
-    RouterModule.forRoot(appRoutes)
+    FormsModule
   ],
-  providers: [],
+  providers: [MoviesService], // service.ts вспомогательные сущности (прописываем свои компоненты)
   bootstrap: [AppComponent]
 })
 export class AppModule { }

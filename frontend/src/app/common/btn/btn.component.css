@@ -1,0 +1,18 @@
+.btn_button_default {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: center;
+    border: none;
+    transition-duration: 0.5s;
+    box-shadow: 1px 1px 5px 0px rgba(0,0,0,0.25);
+    border-radius: 0.2rem;
+    padding: 0 10px;
+}
+.btn_button_default i {
+    margin-right: 2px;
+}
+.btn_button_default p{
+    margin: 0;
+}
+

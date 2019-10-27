@@ -1,0 +1,31 @@
+.search__inp_input{
+    width: 70%;
+    height: 50px;
+    font-size: 25px;
+    background: #EEEEEE;
+    border: 2px solid rgba(79, 91, 98, 0.5);
+    border-radius: 25px;
+    box-sizing: border-box;
+    padding: 10px 10px;
+    box-shadow: 1px 0px 5px 0px rgba(0,0,0,0.25);
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    color: rgba(79, 91, 98, 0.7);
+}
+.search__inp_input i{
+    font-size: 35px;
+}
+.search__inp_input input{
+    padding-left: 10px;
+    box-sizing: border-box; 
+    width: calc( 100% - 55px);
+    border: none;
+    background: transparent;
+    color: rgba(79, 91, 98, 0.7);
+}
+.search__inp_input :active, :hover, :focus {
+    outline: 0;
+    outline-offset: 0;
+    color: rgba(79, 91, 98, 0.8);
+}

@@ -1,0 +1,9 @@
+<div class="content_component_wgcontainer">
+    <div class="content__component_controls">
+        <app-btn class="custom__btn" [active]='hlBtnActivity' width="170px" height="40px" icon="movie" btntitle="Hirelist" (click) = "controlsHandleChange(1)">Hirelist</app-btn>
+        <app-btn class="custom__btn" [active]='LibBtnActivity' width="170px" height="40px" icon="video_library" btntitle="Library" (click) = "controlsHandleChange(2)">Library</app-btn>
+    </div>
+</div>
+<app-hirelist class="app__heirelist_box" *appTab="{tabId: 1,  currentTabId: tabstate}"></app-hirelist>
+<app-library *appTab="{tabId: 2,  currentTabId: tabstate}"></app-library>
+
