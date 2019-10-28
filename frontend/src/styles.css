@@ -30,11 +30,11 @@
     height:0px;
     cursor: pointer !important;
     }
-    
+
     ::-webkit-scrollbar-track {
     box-shadow:0px 0px 3px #000 inset;
     }
-    
+
     ::-webkit-scrollbar-thumb {
     -webkit-border-radius: 5px;
     border-radius: 5px;
@@ -44,15 +44,30 @@
     background-position:center;
     background-repeat:no-repeat;
     }
-    
+
     ::-webkit-resizer{
     background-repeat:no-repeat;
     width:7px;
-    height:0px;
+    height:0;
     cursor: pointer !important;
     }
-    
     ::-webkit-scrollbar{
     width: 3px;
     cursor: pointer !important;
     }
+
+app-root, app-main, app-content, app-moviecard, app-hirelist, app-preloader-small, app-movecardmodal {
+  display: block;
+}
+app-preloader-small {
+  width: 100%;
+}
+app-content {
+  height: calc( 100vh - 50px );
+  overflow-y: auto;
+}
+app-searchfld {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}

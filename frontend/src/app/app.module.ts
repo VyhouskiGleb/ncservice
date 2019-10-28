@@ -1,6 +1,7 @@
 import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
+import { HttpClientModule } from '@angular/common/http';
 import { AppComponent } from './app.component';
 import { NavigationComponent } from './navigation/navigation.component';
 import { MainComponent } from './main/main.component';
@@ -18,6 +19,8 @@ import { TabsDirective } from './common/tabs.directive';
 import { YoutubeComponent } from './common/youtube/youtube.component';
 
 import { MoviesService } from './services/movies.service';
+import { PreloaderComponent } from './common/preloader/preloader.component';
+import { PreloaderSmallComponent } from './common/preloader-small/preloader-small.component';
 
 const appRoutes: Routes = [
   { path: '', component: MainComponent, data: {type: 'app'} },
@@ -41,7 +44,9 @@ const appRoutes: Routes = [
     HistoryComponent,
     MovecardmodalComponent,
     TabsDirective,
-    YoutubeComponent
+    YoutubeComponent,
+    PreloaderComponent,
+    PreloaderSmallComponent
   ],
   imports: [
     RouterModule.forRoot(
@@ -49,7 +54,8 @@ const appRoutes: Routes = [
       { enableTracing: false } // <-- debugging purposes only
     ),
     BrowserModule,
-    FormsModule
+    FormsModule,
+    HttpClientModule
   ],
   providers: [MoviesService], // service.ts вспомогательные сущности (прописываем свои компоненты)
   bootstrap: [AppComponent]

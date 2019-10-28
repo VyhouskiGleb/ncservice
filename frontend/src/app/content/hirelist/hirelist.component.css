@@ -5,7 +5,6 @@
     flex-wrap: wrap;
     flex-direction: row;
     justify-content: flex-start;
-    overflow-y: auto;
     align-content: center;
 }
 

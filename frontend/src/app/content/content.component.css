@@ -7,12 +7,19 @@
     align-items: center;
     justify-content: center;
 }
+app-main {
+  width: max-content;
+  height: max-content;
+  background: darkgreen;
+  display: flex;
+}
 .content__component_controls{
     display: flex;
     flex-direction: row;
     align-items: center;
     justify-content: center;
 }
+
 
 .custom__btn:first-child{
     margin-right: 1.5px;

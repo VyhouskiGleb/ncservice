@@ -1,4 +1,6 @@
 import { Injectable } from '@angular/core';
+import { Observable } from 'rxjs';
+import {HttpClientService} from './http-client.service';
 declare var require: any;
 const hl = require('../document.json');
 
@@ -7,9 +9,14 @@ const hl = require('../document.json');
 })
 export class MoviesService {
   private moviesList = hl.content;
-  private stat = 1;
-  constructor() {}
+
+  constructor(private shttp: HttpClientService) {}
   getList() {
+    this.shttp.get('https://jsonplaceholder.typicode.com/users').subscribe(
+      (data) => {
+        console.log(data);
+      }
+    );
     return this.moviesList;
   }
 }

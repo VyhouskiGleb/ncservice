@@ -1,4 +1,6 @@
-<app-searchfld (onChangeSearchString) = "searchEvent($event)" class="hirelist__searchfld_container" sarchString="test search string"></app-searchfld>
+<app-searchfld (onChangeSearchString) = "searchEvent($event)" sarchString="test search string"></app-searchfld>
 <div #autoload class="hirelist_div_hlcontainer" >
-    <app-moviecard  *ngFor="let movie of movies" class="moviecard__maincard animation" [item] = "movie"></app-moviecard>
+    <app-moviecard  *ngFor="let movie of movies" [item] = "movie"></app-moviecard>
+    <!--<app-preloader></app-preloader>-->
+    <app-preloader-small [status]="loadingStatus" ></app-preloader-small>
 </div>
