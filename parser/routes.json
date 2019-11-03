@@ -6,9 +6,21 @@
         "permission"    : "user|admin"
     },
     {
-        "rote"          : "/api/login",
-        "method"        : "post",
-        "controller"    : "loginController",
+        "rote"          : "/api/get-movies",
+        "method"        : "get",
+        "controller"    : "moviesController",
+        "permission"    : "user|admin"
+    },
+    {
+        "rote"          : "/api/get-movies/get-counter",
+        "method"        : "get",
+        "controller"    : "moviesCounterController",
+        "permission"    : "user|admin"
+    },
+    {
+        "rote"          : "/api/get-movies/search",
+        "method"        : "get",
+        "controller"    : "moviesSearchController",
         "permission"    : "user|admin"
     }
 ]

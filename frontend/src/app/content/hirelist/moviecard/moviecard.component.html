@@ -1,7 +1,7 @@
 <div class="movecard__div_item">
     <img src="{{item.image}}" alt="movie logo" title="movie logo"/>
     <div class="movecard__div_infobox">
-        <p class="movecard__p_movielabel">{{item.label}}</p>
+        <p class="movecard__p_movielabel">{{item.title}}</p>
         <p class="description_status">{{hidderstatus === true ? fullDescription : shortDescription}}</p>
         <a class="description_status_a" *ngIf="!hidderstatus" (click)="handleShowHide($event,true)" href="#show_all"><i class="material-icons">keyboard_arrow_down</i><span>show description</span></a>
         <a class="description_status_a" *ngIf="hidderstatus" (click)="handleShowHide($event,false)" href="#show_all"><i class="material-icons">keyboard_arrow_up</i><span>hide description</span></a>

@@ -18,8 +18,8 @@ module.exports = class Core{
     }
 
     run(app){
-        let parser = new ParserRuiner(7285015,7286015);
-        parser.run();
+        let parser = new ParserRuiner(4648786,4648787);
+        parser.parse('6146586');
 
         var port = configuration.port;
         app.listen(port, () => {
@@ -44,6 +44,7 @@ class ParserRuiner {
         }, 500)
     }
     parse(id) {
+        console.log('http://www.omdbapi.com/?apikey=d51896da&i=tt'+id);
         axios.get('http://www.omdbapi.com/?apikey=d51896da&i=tt'+id).then((res)=>{
             const validationStatus = this.parserValidator(res.data);
             const responceData = res.data;
@@ -60,11 +61,12 @@ class ParserRuiner {
 
     save(data) {
         const db = new Database();
-        let dbQuery = "INSERT INTO `movies` (`m_id`, `mdb_id`, `mdb_titile`, `mdb_released`, `mdb_genre`, `mdb_descr`, `mdb_image`, `m_video`) VALUES (NULL, '"+data.imdbID+"', '"+data.Title+"', '"+data.Released+"', '"+data.Genre+"', '"+data.Plot+"', '"+data.Poster+"', 'bNJW113tbKk');";
+        let dbQuery = 'INSERT INTO `movies` (`m_id`, `mdb_id`, `mdb_titile`, `mdb_released`, `mdb_genre`, `mdb_descr`, `mdb_image`, `m_video`) VALUES (NULL, "'+data.imdbID+'", "'+data.Title+'", "'+data.Released+'", "'+data.Genre+'", "'+data.Plot+'", "'+data.Poster+'", "bNJW113tbKk");';
         db.dbrequest(dbQuery).then(()=>{
             console.log("PARSING COMPLITE: " + data.Title);
         },
-        ()=>{
+        (err)=>{
+            console.log(err);
             console.log('Parsing Error: DB error');
         });
     }

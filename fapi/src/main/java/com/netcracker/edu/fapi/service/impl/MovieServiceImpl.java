@@ -1,26 +1,34 @@
 package com.netcracker.edu.fapi.service.impl;
 
+import com.netcracker.edu.fapi.models.Movie;
 import com.netcracker.edu.fapi.models.User;
+import com.netcracker.edu.fapi.service.MovieService;
 import com.netcracker.edu.fapi.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
-import org.springframework.security.core.userdetails.UserDetails;
-import org.springframework.security.core.userdetails.UserDetailsService;
-import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.web.client.RestTemplate;
-
+import com.netcracker.edu.fapi.models.Movie;
 import java.util.*;
 
-@Service("customMoviesService")
-public class MovieServiceImpl implements UserDetailsService, UserService {
+@Service("customMovieService")
+public class MovieServiceImpl implements MovieService {
 
-    @Value("${backend.server.url}")
-    private String backendServerUrl;
+    /*@Value("${backend.server.url}")
+    private String backendServerUrl;*/
 
-    @Autowired
+    @Override
+    public List<Movie> getAll(int end) {
+        System.out.print(end);
+        ArrayList<Movie> movies = new ArrayList<Movie>();
+        movies.add(new Movie(1, "Title 1", "Description 1", "image 1", 35.5, "Video 1"));
+        movies.add(new Movie(2, "Title 2", "Description 2", "image 2", 35.5, "Video 2"));
+        movies.add(new Movie(3, "Title 3", "Description 3", "image 3", 35.5, "Video 3"));
+        return movies;
+    }
+    /*@Autowired
     private BCryptPasswordEncoder bCryptPasswordEncoder;
 
     @Override
@@ -57,6 +65,6 @@ public class MovieServiceImpl implements UserDetailsService, UserService {
         Set<SimpleGrantedAuthority> authorities = new HashSet<>();
         authorities.add(new SimpleGrantedAuthority("ROLE_" + user.getRole()));
         return authorities;
-    }
+    }*/
 
 }

@@ -2,5 +2,5 @@
 <div #autoload class="hirelist_div_hlcontainer" >
     <app-moviecard  *ngFor="let movie of movies" [item] = "movie"></app-moviecard>
     <!--<app-preloader></app-preloader>-->
-    <app-preloader-small [status]="loadingStatus" ></app-preloader-small>
+    <app-preloader-small [status]="activePageEvent" ></app-preloader-small>
 </div>

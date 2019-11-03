@@ -11,6 +11,7 @@ export class ContentComponent implements OnInit, AfterViewInit {
   tabstate = 1;
   hlBtnActivity = true;
   LibBtnActivity = false;
+  globalPage = 1;
 
   loadingStatusCoords = {
     scrollHeight : 0,
@@ -34,8 +35,20 @@ export class ContentComponent implements OnInit, AfterViewInit {
   }
   ngAfterViewInit(): void {
     this.host.nativeElement.onscroll =  (e) => {
-      if (e.target.scrollHeight - e.target.scrollTop < window.innerHeight) {
+      const childNodes = this.host.nativeElement.childNodes;
+      let counter = 0;
+      // tslint:disable-next-line: prefer-for-of
+      for ( let i = 0; i < childNodes.length; i++) {
+        const height = childNodes[i].offsetHeight;
+        if (!isNaN(height)) { counter += height; }
+      }
+      const position = e.target.scrollTop + this.host.nativeElement.offsetHeight;
+      if (position >= counter) {
+        this.globalPage++;
+        console.log(this.globalPage);
         this.loadingStatus = true;
+      } else  {
+        console.log(this.globalPage);
       }
     };
   }
