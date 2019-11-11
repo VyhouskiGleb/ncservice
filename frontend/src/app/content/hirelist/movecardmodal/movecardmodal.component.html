@@ -1,0 +1,20 @@
+<div class="modal__div_container">
+    <div class="modal__box">
+        <div class="modal__header">
+            <p class="modal__header_p">
+              Movie: {{modalItem.title}}
+            </p>
+            <i class="material-icons modal_close_button" (click)="handleModalCloseEvent()">close</i>
+        </div>
+        <div class="modal__content">
+          <div class="modal__content_header_div">
+            <img src="{{modalItem.image}}"/>
+            <app-youtube class="app_youtube" [videoSource]="modalItem.video"></app-youtube>
+          </div>
+          <p class="modal__content_p">{{modalItem.description}}</p>
+        </div>
+        <div class="modal__button">
+          <app-btn class="moviecard_btn_button" icon='check_circle_outline' hoverBackground="#5A9216" width="220px" height="50px" background="#7CB342" btntitle='Subscribe: {{modalItem.price}}$'></app-btn>
+        </div>
+    </div>
+</div>

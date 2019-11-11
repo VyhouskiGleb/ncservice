@@ -1,0 +1,6 @@
+<app-searchfld (onChangeSearchString) = "searchEvent($event)" ></app-searchfld>
+<div #autoload class="hirelist_div_hlcontainer" >
+    <app-moviecard  *ngFor="let movie of movies" [item] = "movie"></app-moviecard>
+    <!--<app-preloader></app-preloader>-->
+    <app-preloader-small [status]="activePageEvent" ></app-preloader-small>
+</div>
