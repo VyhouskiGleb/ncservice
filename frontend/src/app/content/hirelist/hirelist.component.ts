@@ -14,14 +14,17 @@ export class HirelistComponent implements OnInit, OnChanges, OnDestroy {
   movies: Movie[];
   perPage = 9;
   itemsCounter = 0;
-  activePageEvent = false;
+  activePageEvent = true;
   searchString = '';
   sub: any;
   count: any;
 
   constructor(private moviesService: MoviesService) { }
   ngOnInit() {
-    this.sub = this.moviesService.getList(this.page * this.perPage, this.searchString).subscribe((data: Movie[]) => this.movies = data);
+    this.sub = this.moviesService.getList(this.page * this.perPage, this.searchString).subscribe((data: Movie[]) => {
+      this.activePageEvent = false;
+      this.movies = data
+    });
     this.count = this.moviesService.getCounter().subscribe((data: {counter: number}) => this.itemsCounter = data.counter);
   }
 
@@ -43,7 +46,7 @@ export class HirelistComponent implements OnInit, OnChanges, OnDestroy {
 
   searchEvent(event: any) {
     this.searchString = event;
-    if (event === '') {
+    if (event.length === 0) {
       this.pageIncrement();
     } else {
       this.activePageEvent = true;

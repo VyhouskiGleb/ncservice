@@ -10,7 +10,6 @@
 app-main {
   width: max-content;
   height: max-content;
-  background: darkgreen;
   display: flex;
 }
 .content__component_controls{

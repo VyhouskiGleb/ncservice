@@ -12,12 +12,15 @@ module.exports = class authController {
                     title: row.mdb_titile,
                     description: row.mdb_descr,
                     image: row.mdb_image,
+                    cost: 333,
                     video : row.m_video
                 });
             });
+                res.setHeader('Content-Type', 'application/json');
             res.send(JSON.stringify(apiRes));
         },
         () => {
+            res.setHeader('Content-Type', 'application/json');
             res.send(JSON.stringify(apiRes));
         });
     }

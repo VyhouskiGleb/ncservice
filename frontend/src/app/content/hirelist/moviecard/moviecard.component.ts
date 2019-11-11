@@ -13,6 +13,7 @@ export class MoviecardComponent implements OnInit {
   showhidder = false;
   hidderstatus = false;
   fullWidjet = false;
+  confirmWidjet = false;
   constructor() { }
 
   ngOnInit() {
@@ -31,8 +32,15 @@ export class MoviecardComponent implements OnInit {
   handleWidjet = (value: boolean): void => {
     this.fullWidjet = value;
   }
+  confirmEvent = (value: boolean): void => {
+    this.confirmWidjet = value
+  }
   handleClick = (): void => {
     this.fullWidjet = true;
   }
+  handleConfirm = (): void => {
+    this.confirmWidjet = true;
+  }
+
 
 }

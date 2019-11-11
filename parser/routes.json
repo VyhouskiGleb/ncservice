@@ -12,6 +12,12 @@
         "permission"    : "user|admin"
     },
     {
+        "rote"          : "/api/get-movies/item",
+        "method"        : "get",
+        "controller"    : "moviesControllerItem",
+        "permission"    : "user|admin"
+    },
+    {
         "rote"          : "/api/get-movies/get-counter",
         "method"        : "get",
         "controller"    : "moviesCounterController",
@@ -21,6 +27,18 @@
         "rote"          : "/api/get-movies/search",
         "method"        : "get",
         "controller"    : "moviesSearchController",
+        "permission"    : "user|admin"
+    },
+    {
+        "rote"          : "/api/user/login",
+        "method"        : "post",
+        "controller"    : "userLoginController",
+        "permission"    : "user|admin"
+    },
+    {
+        "rote"          : "/api/get-lib",
+        "method"        : "get",
+        "controller"    : "moviesUserLib",
         "permission"    : "user|admin"
     }
 ]

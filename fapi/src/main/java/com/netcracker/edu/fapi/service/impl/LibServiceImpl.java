@@ -1,42 +1,34 @@
 package com.netcracker.edu.fapi.service.impl;
 
+import com.netcracker.edu.fapi.models.Lib;
 import com.netcracker.edu.fapi.models.Movie;
-import com.netcracker.edu.fapi.models.User;
-import com.netcracker.edu.fapi.service.MovieService;
-import com.netcracker.edu.fapi.service.UserService;
-import org.springframework.beans.factory.annotation.Autowired;
+import com.netcracker.edu.fapi.service.LibService;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.http.ResponseEntity;
-import org.springframework.security.core.authority.SimpleGrantedAuthority;
-import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.web.client.RestTemplate;
-import com.netcracker.edu.fapi.models.Movie;
+
 import java.util.*;
 
-@Service("customMovieService")
-public class MovieServiceImpl implements MovieService {
+@Service("customLibService")
+public class LibServiceImpl implements LibService {
 
     @Value("${nodejs.server.url}")
     private String nodejsServerUrl;
 
     @Override
-    public List<Movie> getAll(int end) {
-        RestTemplate restTemplate = new RestTemplate();
-        Movie[] usersResponse = restTemplate.getForObject(nodejsServerUrl+"api/get-movies?end="+end, Movie[].class);
-        return usersResponse == null ? Collections.emptyList() : Arrays.asList(usersResponse);
+    public List<Lib> getAll() {
+        System.out.print("/list/get-all");
+        ArrayList<Lib> libArr = new ArrayList<Lib>();
+        libArr.add(new Lib(12, new Movie(1, "Title 2", "Description 2", "image 2", 35.5, "Video 2"), 234932498, true));
+        libArr.add(new Lib(13, new Movie(2, "Title 2", "Description 2", "image 2", 35.5, "Video 2"), 234932498, true));
+
+        //todo Movie user = restTemplate.getForObject("http://localhost:8006/api/get-movies?end=10", Movie.class);
+        return libArr;
     }
-    @Override
-    public Movie getItem(int id) {
-        RestTemplate restTemplate = new RestTemplate();
-        Movie usersResponse = restTemplate.getForObject(nodejsServerUrl+"api/get-movies/item?id="+id, Movie.class);
-        return usersResponse == null ? new Movie() : usersResponse;
-    }
-    @Override
-    public List<Movie> searchMovies(String query) {
-        RestTemplate restTemplate = new RestTemplate();
-        Movie[] usersResponse = restTemplate.getForObject(nodejsServerUrl+"api/get-movies/search?string="+query, Movie[].class);
-        return usersResponse == null ? Collections.emptyList() : Arrays.asList(usersResponse);
+
+    public Lib getItem(long id) {
+        return new Lib(id, new Movie(1, "Title 2", "Description 2", "image 2", 35.5, "Video 2"), 234932498, true);
     }
     /*@Autowired
     private BCryptPasswordEncoder bCryptPasswordEncoder;

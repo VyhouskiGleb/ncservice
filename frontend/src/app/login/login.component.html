@@ -11,18 +11,26 @@
             <div class="mainbox__div__projectdescription">
                 <p>Значимость этих проблем настолько очевидна, что рамки и место обучения кадров способствует подготовки и реализации модели развития</p>
             </div>
-            <form class="mainbox__div__form">
+            <form class="mainbox__div__form" [formGroup]="loginForm" (ngSubmit)="submit()" >
+                <div class="alert alert-danger"
+                    *ngIf="loginForm.controls['userLogin'].invalid && loginForm.controls['userLogin'].touched">
+                    Enter user login
+                </div>
                 <div class="form-group">
                     <label for="inputLogin">Login</label>
-                    <input type="text" class="form-control form-control-lg" id="inputLogin" placeholder="Enter login">
+                    <input type="text" class="form-control form-control-lg" formControlName="userLogin" placeholder="Enter login">
+                </div>
+                <div class="alert alert-danger"
+                            *ngIf="loginForm.controls['userPassword'].invalid && loginForm.controls['userPassword'].touched">
+                            Enter user password
                 </div>
                 <div class="form-group">
                     <label for="inputPassword">Password</label>
                     <small id="passHelp" class="form-text text-muted">We'll never share your password with anyone else.</small>
-                    <input type="password" class="form-control form-control-lg" id="inputPassword" placeholder="Password">
+                    <input type="password" formControlName="userPassword" class="form-control form-control-lg" placeholder="Password">
                 </div>
                 <span id="passHelp" class="form-text text-muted">Оr create <a href="#" target="_blank">account</a></span>
-                <button type="submit" class="btn btn-success btn-lg form__control_login btn-block">Login</button>
+                <button [disabled]="loginForm.invalid" type="submit" class="btn btn-success btn-lg form__control_login btn-block">Login</button>
             </form>
         </div>
     </div>

@@ -18,8 +18,18 @@ public class MoviesController {
     //private UserService userService;
 
     // todo: @PreAuthorize("hasRole('ADMIN')")
-    @GetMapping("/all/{end}")
-    public List<Movie> getAllMovies(@PathVariable int end){
+    @GetMapping("/get-all")
+    public List<Movie> getAllMovies(@RequestParam("end") int end){
         return movieService.getAll(end);
+    }
+
+    @GetMapping("/item")
+    public Movie getMovieItem(@RequestParam("id") int id) {
+        return movieService.getItem(id);
+    }
+
+    @GetMapping("/search")
+    public List<Movie> getMovieItem(@RequestParam("query") String query) {
+        return movieService.searchMovies(query);
     }
 }

@@ -1,4 +1,6 @@
 import { Component, OnInit } from '@angular/core';
+import {MoviesService} from '../../services/movies.service';
+import {Movie} from '../../interfaces/movie';
 
 @Component({
   selector: 'app-library',
@@ -7,9 +9,12 @@ import { Component, OnInit } from '@angular/core';
 })
 export class LibraryComponent implements OnInit {
 
-  constructor() { }
+  libData = [];
+
+  constructor(private moviesService: MoviesService) { }
 
   ngOnInit() {
+    this.moviesService.getLib().subscribe(data => this.libData = data)
   }
 
 }

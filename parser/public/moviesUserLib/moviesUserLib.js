@@ -1,28 +1,25 @@
 module.exports = class authController {
     controllerRun(app, db, rote, req, res) {
+        const userId = 1;
         let apiRes = [];
-        let end = 0;
-        if(req.query.end === undefined) end = 9;
-        else end = req.query.end;
-        console.log(req.query.end)
-        db.dbrequest("SELECT * FROM movies ORDER BY m_id DESC LIMIT 0, "+end).then((data)=>{
+        db.dbrequest("SELECT * FROM orders LEFT JOIN users ON orders.order_user_id = users.user_id LEFT JOIN movies ON orders.order_movie_id=movies.m_id WHERE users.user_id = 1 ORDER BY order_utc_end DESC").then((data)=>{
             data.map((row) => {
                 apiRes.push({
-                    id: row.m_id,
+                    id: row.order_id,
+                    movie_id: row.order_movie_id,
                     title: row.mdb_titile,
                     description: row.mdb_descr,
                     image: row.mdb_image,
-                    cost: 333,
-                    video : row.m_video
+                    video : row.m_video,
+                    end: row.order_utc_end,
+                    status: row.order_status,
                 });
             });
-            res.setHeader('Content-Type', 'application/json');
             res.send(JSON.stringify(apiRes));
         },
         () => {
             res.send(JSON.stringify(apiRes));
         });
         
-        return true;
     }
 }

@@ -15,7 +15,7 @@ export class MoviesService {
 
   constructor(private shttp: HttpClientService) {}
   getList(end: number, search: string): Observable<Movie[]> {
-    return this.shttp.get('http://localhost:8006/api/get-movies?end=' + end + '&search=' + search).pipe(map((data) => {
+    return this.shttp.get('http://localhost:3808/api/movies/get-all?end=' + end + '&search=' + search).pipe(map((data) => {
       console.log(data);
       return data;
     }));
@@ -28,6 +28,21 @@ export class MoviesService {
   }
   getSearchData(searchString: string): Observable<Movie[]> {
     return this.shttp.get('http://localhost:8006/api/get-movies/search?string=' + searchString).pipe(map((data) => {
+      console.log(data);
+      return data;
+    }));
+  }
+
+  addMovie( id: number): Observable<{status: boolean}> {
+    return this.shttp.get('http://localhost:8006/api/get-lib?user=').pipe(map((data) => {
+      console.log(data);
+      return data;
+    }));
+  }
+
+  getLib(): Observable<any[]> {
+    const userId = 1;
+    return this.shttp.get('http://localhost:8006/api/get-lib').pipe(map((data) => {
       console.log(data);
       return data;
     }));
