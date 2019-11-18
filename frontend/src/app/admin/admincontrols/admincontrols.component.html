@@ -1,0 +1,14 @@
+<div class="container-fluid admin_panel__header_box">
+  <div class="row admin_panel__header">
+    <div class="col-12 admin_panel_conytrols_box"><app-btn (click)="handleClickTab(1)" btntitle="Movies"></app-btn><app-btn (click)="handleClickTab(2)" btntitle="Users"></app-btn></div>
+  </div>
+</div>
+<div class="container">
+  <!--*appTab="{tabId: 2,  currentTabId: tabstate} -->
+  <div class="row admin_panel_body">
+    <div class="col-12">
+      <app-movies-editor *appTab="{tabId: 1,  currentTabId: this.state}" ></app-movies-editor>
+      <app-users-editor *appTab="{tabId: 2,  currentTabId: this.state}"></app-users-editor>
+    </div>
+  </div>
+</div>

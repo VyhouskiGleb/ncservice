@@ -23,11 +23,15 @@ import { MoviesService } from './services/movies.service';
 import { PreloaderSmallComponent } from './common/preloader-small/preloader-small.component';
 import { OrdercardComponent } from './content/library/ordercard/ordercard.component';
 import { OrdermodalComponent } from './content/ordermodal/ordermodal.component';
+import { AdmincontrolsComponent } from './admin/admincontrols/admincontrols.component';
+import { MoviesEditorComponent } from './admin/movies-editor/movies-editor.component';
+import { UsersEditorComponent } from './admin/users-editor/users-editor.component';
 
 const appRoutes: Routes = [
   { path: '', component: MainComponent, data: {type: 'app'} },
   { path: 'login', component: LoginComponent, data: {type: 'public'} },
   { path: 'history', component: HistoryComponent, data: {type: 'app'} },
+  { path: 'admin', component: AdmincontrolsComponent, data: {type: 'app'} },
   { path: '**', component: AppComponent, data: {type: 'app'} }
 ];
 
@@ -50,6 +54,9 @@ const appRoutes: Routes = [
     PreloaderSmallComponent,
     OrdercardComponent,
     OrdermodalComponent,
+    AdmincontrolsComponent,
+    MoviesEditorComponent,
+    UsersEditorComponent,
   ],
   imports: [
     RouterModule.forRoot(

@@ -1,6 +1,6 @@
 package com.netcracker.edu.backend.service.impl;
 
-import com.netcracker.edu.backend.entity.User;
+import com.netcracker.edu.backend.entity.Users;
 import com.netcracker.edu.backend.repository.UserRepository;
 import com.netcracker.edu.backend.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -15,17 +15,17 @@ public class UserServiceImpl implements UserService {
     private UserRepository userRepository;
 
     @Override
-    public List<User> findAll() {
-        return (List<User>) userRepository.findAll();
+    public List<Users> findAll() {
+        return (List<Users>) userRepository.findAll();
     }
 
     @Override
-    public User findByLogin(String login) {
+    public Users findByLogin(String login) {
         return userRepository.findByLogin(login);
     }
 
     @Override
-    public User save(User user) {
+    public Users save(Users user) {
         return userRepository.save(user);
     }
 

@@ -7,14 +7,14 @@ import javax.persistence.Id;
 import java.util.Objects;
 
 @Entity
-public class User {
+public class Users {
     private int id;
     private String login;
     private String password;
     private String role;
 
     @Id
-    @Column(name = "id")
+    @Column(name = "user_id")
     public int getId() {
         return id;
     }
@@ -24,7 +24,7 @@ public class User {
     }
 
     @Basic
-    @Column(name = "login")
+    @Column(name = "user_login")
     public String getLogin() {
         return login;
     }
@@ -34,7 +34,7 @@ public class User {
     }
 
     @Basic
-    @Column(name = "password")
+    @Column(name = "user_password")
     public String getPassword() {
         return password;
     }
@@ -44,7 +44,7 @@ public class User {
     }
 
     @Basic
-    @Column(name = "role")
+    @Column(name = "user_role")
     public String getRole() {
         return role;
     }
@@ -57,7 +57,7 @@ public class User {
     public boolean equals(Object o) {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
-        User user = (User) o;
+        Users user = (Users) o;
         return id == user.id &&
                 Objects.equals(login, user.login) &&
                 Objects.equals(password, user.password) &&

@@ -26,7 +26,7 @@ public class BillingAccountDataController {
         if (billingAccount != null) {
             return ResponseEntity.ok(billingAccountDataService.saveBillingAccount(billingAccount));
         }
-        return null;
+        return (ResponseEntity<BillingAccountViewModel>) ResponseEntity.badRequest();
     }
 
     @RequestMapping(value = "/{id}", method = RequestMethod.DELETE)

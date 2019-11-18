@@ -1,13 +1,13 @@
 package com.netcracker.edu.backend.service;
 
-import com.netcracker.edu.backend.entity.User;
+import com.netcracker.edu.backend.entity.Users;
 
 import java.util.List;
 
 public interface UserService {
 
-    List<User> findAll();
-    User findByLogin(String login);
-    User save(User user);
+    List<Users> findAll();
+    Users findByLogin(String login);
+    Users save(Users user);
     void delete(long id);
 }

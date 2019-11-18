@@ -2,6 +2,7 @@ package com.netcracker.edu.fapi.service.impl;
 
 import com.netcracker.edu.fapi.models.Movie;
 import com.netcracker.edu.fapi.models.User;
+import com.netcracker.edu.fapi.models.entrydata.AddToLibData;
 import com.netcracker.edu.fapi.service.MovieService;
 import com.netcracker.edu.fapi.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -37,6 +38,10 @@ public class MovieServiceImpl implements MovieService {
         RestTemplate restTemplate = new RestTemplate();
         Movie[] usersResponse = restTemplate.getForObject(nodejsServerUrl+"api/get-movies/search?string="+query, Movie[].class);
         return usersResponse == null ? Collections.emptyList() : Arrays.asList(usersResponse);
+    }
+
+    public AddToLibData addToLib(AddToLibData data) {
+        return data;
     }
     /*@Autowired
     private BCryptPasswordEncoder bCryptPasswordEncoder;

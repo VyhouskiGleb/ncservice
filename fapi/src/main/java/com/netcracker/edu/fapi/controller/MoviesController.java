@@ -1,6 +1,8 @@
 package com.netcracker.edu.fapi.controller;
 
 import com.netcracker.edu.fapi.models.Movie;
+import com.netcracker.edu.fapi.models.User;
+import com.netcracker.edu.fapi.models.entrydata.AddToLibData;
 import com.netcracker.edu.fapi.service.MovieService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.access.prepost.PreAuthorize;
@@ -31,5 +33,10 @@ public class MoviesController {
     @GetMapping("/search")
     public List<Movie> getMovieItem(@RequestParam("query") String query) {
         return movieService.searchMovies(query);
+    }
+//PostMapping
+    @RequestMapping(value="/add-to-lib", method = RequestMethod.POST)
+    public AddToLibData saveUser(@RequestBody AddToLibData data){
+        return movieService.addToLib(data);
     }
 }

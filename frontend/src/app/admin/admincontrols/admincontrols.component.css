@@ -1,0 +1,16 @@
+.admin_panel__header_box{
+  background: #E8EAF6;
+}
+
+.admin_panel__header{
+  min-height: 50px;
+  box-shadow: 0px 1px 5px 0px rgba(0,0,0,0.44);
+}
+
+.admin_panel_conytrols_box{
+  display: flex;
+  flex-direction: row;
+}
+.admin_panel_conytrols_box app-btn {
+  margin: 0 5px;
+}
