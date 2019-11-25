@@ -1,10 +1,8 @@
 package com.netcracker.edu.backend.controller;
 
 import com.netcracker.edu.backend.entity.Movies;
-import com.netcracker.edu.backend.entity.Users;
 import com.netcracker.edu.backend.service.MoviesService;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -14,30 +12,39 @@ import java.util.List;
 public class MovieController {
     @Autowired
     private MoviesService movieServices;
-    private Object data;
 
-    @RequestMapping(value = "/get-list", method = RequestMethod.GET)
+    @GetMapping()
     public List<Movies> getList() {
         return movieServices.getAll();
     }
 
-    @RequestMapping(value = "/get-by-id/{id}", method = RequestMethod.GET)
-    public Movies getById(@PathVariable(name = "id") int movieId) {
+    @GetMapping("/{start}/{end}")
+    public List<Movies> getListBordered(@PathVariable(name = "start") long start, @PathVariable(name = "end") long end ) {
+        return movieServices.getWithBorders(start,end);
+    }
+
+    @GetMapping("/search/{searchQuery}")
+    public List<Movies> getListBordered(@PathVariable(name = "searchQuery") String query) {
+        return movieServices.getSearchResult(query);
+    }
+
+    @GetMapping("/{id}")
+    public Movies getById(@PathVariable(name = "id") long movieId) {
         return movieServices.getById(movieId);
     }
 
-    @RequestMapping(value = "/update", method = RequestMethod.POST)
-    public Movies updateMovie(@RequestBody Movies movie) {
-        return movieServices.updateMovie(movie);
+    @PutMapping(value = "/{id}")
+    public Movies updateMovie(@RequestBody Movies movie, @PathVariable(name = "id") long movieId) {
+        return movieServices.updateMovie( movieId, movie);
     }
 
-    @RequestMapping(value = "/save", method = RequestMethod.POST)
+    @PostMapping()
     public Movies saveMovie(@RequestBody Movies movie) {
         return movieServices.saveMovie(movie);
     }
 
-    @RequestMapping(value = "/delete", method = RequestMethod.POST)
-    public boolean deleteMovie(@RequestParam long id) {
+    @DeleteMapping("/{id}")
+    public boolean deleteMovie(@PathVariable(name = "id") long id) {
         return movieServices.deleteMovie(id);
     }
 

@@ -27,7 +27,7 @@ public class UserController {
         return userService.findByLogin(login);
     }
 
-    @RequestMapping(value="/signup", method = RequestMethod.POST, produces = "application/json")
+    @PostMapping(value="/signup", produces = "application/json")
     public User saveUser(@RequestBody User user){
         return userService.save(user);
     }

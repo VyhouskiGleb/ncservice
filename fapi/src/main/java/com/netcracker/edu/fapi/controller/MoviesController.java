@@ -34,8 +34,8 @@ public class MoviesController {
     public List<Movie> getMovieItem(@RequestParam("query") String query) {
         return movieService.searchMovies(query);
     }
-//PostMapping
-    @RequestMapping(value="/add-to-lib", method = RequestMethod.POST)
+
+    @PostMapping(value="/add-to-lib")
     public AddToLibData saveUser(@RequestBody AddToLibData data){
         return movieService.addToLib(data);
     }
