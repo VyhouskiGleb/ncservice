@@ -3,5 +3,6 @@ export interface Movie {
   title: string;
   description: string;
   image: string;
+  cost: number;
   video: string;
 }

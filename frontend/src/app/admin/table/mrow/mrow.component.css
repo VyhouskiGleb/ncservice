@@ -1,0 +1,52 @@
+td{
+  padding: 0;
+  height: 100%;
+  border: 1px solid gray;
+  text-align: center;
+}
+
+
+td label {
+  width: 100%;
+  height: 100%;
+  margin: 0 !important;
+}
+td label input{
+  padding: 5px 5px;
+  width: 100%;
+  height: 100%;
+  border: none;
+}
+td label input:focus {
+  background: rgba(189, 255, 135, 0.5);
+}
+.done {
+  color: #0eef37;
+}
+.error {
+  color: #db2b2b;
+}
+
+.status_item {
+  width: 100%;
+  height: 100%;
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: center;
+}
+.remove_control button {
+  width: 100%;
+  height: 100%;
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: center;
+  color: #E1E2E1;
+  background: #ff4747;
+  border: none;
+}
+.remove_control button:hover {
+  transition-duration: 0.5s;
+  background: #ed6f6f;
+}

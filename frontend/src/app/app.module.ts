@@ -26,6 +26,9 @@ import { OrdermodalComponent } from './content/ordermodal/ordermodal.component';
 import { AdmincontrolsComponent } from './admin/admincontrols/admincontrols.component';
 import { MoviesEditorComponent } from './admin/movies-editor/movies-editor.component';
 import { UsersEditorComponent } from './admin/users-editor/users-editor.component';
+import { TableComponent } from './admin/table/table.component';
+import { MrowComponent } from './admin/table/mrow/mrow.component';
+import { ActionMessageComponent } from './common/action-message/action-message.component';
 
 const appRoutes: Routes = [
   { path: '', component: MainComponent, data: {type: 'app'} },
@@ -57,6 +60,9 @@ const appRoutes: Routes = [
     AdmincontrolsComponent,
     MoviesEditorComponent,
     UsersEditorComponent,
+    TableComponent,
+    MrowComponent,
+    ActionMessageComponent,
   ],
   imports: [
     RouterModule.forRoot(

@@ -71,3 +71,16 @@ app-searchfld {
   align-items: center;
   justify-content: center;
 }
+
+app-mrow {
+  box-sizing: border-box;
+  vertical-align: middle;
+  display: table-row;
+  border-color: inherit;
+}
+app-table {
+  display: block;
+  width: 100% !important;
+  height: max-content !important;
+  padding: 10px 0 !important;
+}

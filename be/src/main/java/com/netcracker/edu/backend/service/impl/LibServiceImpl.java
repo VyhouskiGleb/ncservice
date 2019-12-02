@@ -1,9 +1,8 @@
 package com.netcracker.edu.backend.service.impl;
 
-import com.netcracker.edu.backend.entity.Movies;
-import com.netcracker.edu.backend.entity.Orders;
+import com.netcracker.edu.backend.entity.Movie;
+import com.netcracker.edu.backend.entity.Order;
 import com.netcracker.edu.backend.models.Lib;
-import com.netcracker.edu.backend.models.Movie;
 import com.netcracker.edu.backend.repository.MovieRepository;
 import com.netcracker.edu.backend.repository.OrdersRepository;
 import com.netcracker.edu.backend.service.LibService;
@@ -21,19 +20,26 @@ public class LibServiceImpl implements LibService {
     @Autowired
     private MovieRepository movieRepository;
 
-    private Lib LibFilter(Orders ordersItem) {
-        boolean tmpStatus = ordersItem.getStatus().equals("active");
-        Movies tmpMoviesRep = movieRepository.getOneById(ordersItem.getMovieId());
-        Movie tmpMovie = new Movie(tmpMoviesRep.getId(), tmpMoviesRep.getTitle(), tmpMoviesRep.getDescription(), tmpMoviesRep.getImage(), 3333,"sss");
-        return new Lib(ordersItem.getId(), ordersItem.getUserId(), tmpMovie, ordersItem.getUtcEnd(), tmpStatus);
+    private Lib LibFilter(Order orderItem) {
+        boolean tmpStatus = orderItem.getStatus().equals("active");
+        Movie tmpMovieRep = movieRepository.getOneById(orderItem.getMovie().getId());
+        com.netcracker.edu.backend.models.Movie tmpMovie = new com.netcracker.edu.backend.models.Movie(tmpMovieRep.getId(), tmpMovieRep.getTitle(), tmpMovieRep.getDescription(), tmpMovieRep.getImage(), 3333,"sss");
+        return new Lib(orderItem.getId(), orderItem.getUserId(), tmpMovie, orderItem.getUtcEnd(), tmpStatus);
+    }
+
+    private boolean CheckSubscription(long movieId, long userId) {
+        //List<Order> tmpCheckResult = ordersRepository.getSubscription(movieId, userId);
+        //System.out.println(tmpCheckResult.size());
+
+        return  false;
     }
 
     public List<Lib> getLib() {
-        List<Orders> tmpOrders = ordersRepository.findAll();
+        List<Order> tmpOrders = ordersRepository.findAll();
         Collections.reverse(tmpOrders);
         List<Lib> resultLib = new ArrayList<Lib>();
         try{
-            for (Orders tmpOrder : tmpOrders) {
+            for (Order tmpOrder : tmpOrders) {
                 resultLib.add(this.LibFilter(tmpOrder));
             }
         }
@@ -44,7 +50,7 @@ public class LibServiceImpl implements LibService {
     }
 
     public List<Lib> getWithBorders(long start, long end) {
-        List<Orders> tmpOrders = ordersRepository.findAll();
+        List<Order> tmpOrders = ordersRepository.findAll();
         Collections.reverse(tmpOrders);
 
         List<Lib> resultList = new ArrayList<Lib>();
@@ -62,11 +68,11 @@ public class LibServiceImpl implements LibService {
 
     public Lib getById(long libId) {
 
-        Orders tmpOrders;
+        Order tmpOrder;
         Lib resultLib = new Lib();
         try{
-            tmpOrders = ordersRepository.getOneById(libId);
-            resultLib = this.LibFilter(tmpOrders);
+            tmpOrder = ordersRepository.getOneById(libId);
+            resultLib = this.LibFilter(tmpOrder);
             return resultLib;
         }
         catch(Exception ex){
@@ -74,13 +80,13 @@ public class LibServiceImpl implements LibService {
             return resultLib;
         }
     }
-    public Lib updateLib(long orderId, Orders order) {
-        Orders resultOrders;
+    public Lib updateLib(long orderId, Order order) {
+        Order resultOrder;
         Lib resultLib = new Lib();
         try {
             order.setId(orderId);
-            resultOrders = ordersRepository.save(order);
-            resultLib = this.LibFilter(resultOrders);
+            resultOrder = ordersRepository.save(order);
+            resultLib = this.LibFilter(resultOrder);
             return resultLib;
 
         }
@@ -90,12 +96,13 @@ public class LibServiceImpl implements LibService {
         }
     }
 
-    public Lib saveMovie(Orders order) {
+    public Lib saveMovie(Order order) {
         Lib resultLib  = new Lib();
-        Orders resultOrders;
+        Order resultOrder;
+        this.CheckSubscription(27, 1);
         try {
-            resultOrders = ordersRepository.save(order);
-            resultLib = this.LibFilter(resultOrders);
+            resultOrder = ordersRepository.save(order);
+            resultLib = this.LibFilter(resultOrder);
             return resultLib;
 
         }

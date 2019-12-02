@@ -1,0 +1,32 @@
+<td>#{{item.id}}</td>
+<td><label>
+  <input type="text"  (input)="onDataChange($event, 'title')" value="{{item.title}}"/>
+</label></td>
+<td><label>
+  <input type="text" (input)="onDataChange($event, 'description')" value="{{item.description}}"/>
+</label></td>
+<td><label>
+  <input type="text" (input)="onDataChange($event, 'cost')" value="{{item.cost}}"/>
+</label></td>
+<td class="small_column"><a target="_blank" href="{{item.image}}">Open</a></td>
+<td><label>
+  <input type="text" (input)="onDataChange($event, 'video')" value="{{item.video}}"/>
+</label></td>
+<td>
+  <div *ngIf="!load" class="status_item" >
+    <i *ngIf="status" class="material-icons done">done_all</i>
+    <i *ngIf="!status" class="material-icons error">error</i>
+  </div>
+  <div *ngIf="load" class="status_item" >
+    <div class="spinner-grow text-success" role="status">
+      <span class="sr-only">Loading...</span>
+    </div>
+  </div>
+</td>
+<td class="remove_control">
+  <button (click)="onDeleteRow($event)">
+    <i class="material-icons">
+      delete_forever
+    </i>
+  </button>
+</td>

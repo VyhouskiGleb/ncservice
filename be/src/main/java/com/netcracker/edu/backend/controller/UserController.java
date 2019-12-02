@@ -1,6 +1,6 @@
 package com.netcracker.edu.backend.controller;
 
-import com.netcracker.edu.backend.entity.Users;
+import com.netcracker.edu.backend.entity.User;
 import com.netcracker.edu.backend.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
@@ -15,19 +15,24 @@ public class UserController {
     @Autowired
     private UserService userService;
 
-    @RequestMapping(value = "/login/{login}", method = RequestMethod.GET)
-    public ResponseEntity<Users> getUserByLogin(@PathVariable(name = "login") String login) {
-        Users user = userService.findByLogin(login);
+    @GetMapping("/login/{login}")
+    public ResponseEntity<User> getUserByLogin(@PathVariable(name = "login") String login) {
+        User user = userService.findByLogin(login);
         return ResponseEntity.ok(user);
     }
 
-    @RequestMapping(value = "", method = RequestMethod.GET)
-    public List<Users> getAllUsers() {
+    @GetMapping()
+    public List<User> getAllUsers() {
         return userService.findAll();
     }
 
-    @RequestMapping(method = RequestMethod.POST)
-    public Users saveUser(@RequestBody Users user) {
+    @PutMapping("/{id}")
+    public User updateUser(@PathVariable(name = "id") long userId, @RequestBody User body) {
+        return userService.updateUser(userId, body);
+    }
+
+    @PostMapping()
+    public User saveUser(@RequestBody User user) {
         return userService.save(user);
     }
 }

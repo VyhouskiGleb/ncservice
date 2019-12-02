@@ -1,6 +1,7 @@
 package com.netcracker.edu.backend.service.impl;
 
-import com.netcracker.edu.backend.entity.Movies;
+import com.netcracker.edu.backend.entity.Movie;
+import com.netcracker.edu.backend.entity.User;
 import com.netcracker.edu.backend.repository.MovieRepository;
 import com.netcracker.edu.backend.service.MoviesService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -17,26 +18,41 @@ public class MovieServiceImpl implements MoviesService {
     private MovieRepository movieRepository;
 
     @Override
-    public List<Movies> getAll() {
-        List<Movies> tmpList = movieRepository.findAll();
+    public List<Movie> getAll() {
+        List<Movie> tmpList = movieRepository.findAll();
         Collections.reverse(tmpList);
         return tmpList;
     }
 
     @Override
-    public Movies getById(long id) {
+    public Movie getById(long id) {
         return movieRepository.getOneById(id);
     }
 
     @Override
-    public Movies updateMovie(long movieId, Movies movies) {
-        movies.setId(movieId);
-        return movieRepository.save(movies);
+    public boolean updateMovie(long movieId, Movie movie) {
+        try {
+            Movie tmpMovie = getById(movieId);
+            if (movie.getTitle() == null) movie.setTitle(tmpMovie.getTitle());
+            if (movie.getDescription() == null) movie.setDescription(tmpMovie.getDescription());
+            if (movie.getMid() == null) movie.setMid(tmpMovie.getMid());
+            if (movie.getImage() == null) movie.setImage(tmpMovie.getImage());
+            if (movie.getReleased() == null) movie.setReleased(tmpMovie.getReleased());
+            if (movie.getVideo() == null) movie.setVideo(tmpMovie.getVideo());
+            movie.setId(movieId);
+            Movie result = movieRepository.save(movie);
+            boolean resultVal = true;
+            if(result == null) resultVal = false;
+            return resultVal;
+        }
+        catch (Exception ex) {
+            return false;
+        }
     }
 
     @Override
-    public Movies saveMovie(Movies movies) {
-        return movieRepository.save(movies);
+    public Movie saveMovie(Movie movie) {
+        return movieRepository.save(movie);
     }
 
     @Override
@@ -46,11 +62,11 @@ public class MovieServiceImpl implements MoviesService {
     }
 
     @Override
-    public List<Movies> getWithBorders(long start, long end) {
-        List<Movies> tmpMovies = movieRepository.findAll();
+    public List<Movie> getWithBorders(long start, long end) {
+        List<Movie> tmpMovies = movieRepository.findAll();
         Collections.reverse(tmpMovies);
 
-        List<Movies> resultList = new ArrayList<Movies>();
+        List<Movie> resultList = new ArrayList<Movie>();
 
         try{
             for(long i = start; i < end; i++ ){
@@ -65,10 +81,11 @@ public class MovieServiceImpl implements MoviesService {
     }
 
     @Override
-    public List<Movies> getSearchResult(String query) {
-        List<Movies> tmpList = movieRepository.searchMovies(query);
+    public List<Movie> getSearchResult(String query) {
+        List<Movie> tmpList = movieRepository.searchMovies(query);
         Collections.reverse(tmpList);
         return tmpList;
     }
+
 
 }

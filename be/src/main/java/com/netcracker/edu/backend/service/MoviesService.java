@@ -1,15 +1,15 @@
 package com.netcracker.edu.backend.service;
 
-import com.netcracker.edu.backend.entity.Movies;
+import com.netcracker.edu.backend.entity.Movie;
 
 import java.util.List;
 
 public interface MoviesService {
-    List<Movies> getAll();
-    Movies getById(long id);
-    Movies updateMovie(long movieId, Movies movie);
-    Movies saveMovie(Movies movie);
+    List<Movie> getAll();
+    Movie getById(long id);
+    boolean updateMovie(long movieId, Movie movie);
+    Movie saveMovie(Movie movie);
     boolean deleteMovie(long id);
-    List<Movies> getWithBorders(long start, long end);
-    List<Movies> getSearchResult(String query);
+    List<Movie> getWithBorders(long start, long end);
+    List<Movie> getSearchResult(String query);
 }

@@ -1,21 +1,19 @@
 package com.netcracker.edu.backend.entity;
 
-import javax.persistence.Basic;
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.Id;
+import javax.persistence.*;
 import java.util.Objects;
 
 @Entity
-public class Movies {
+@Table(name="movies")
+public class Movie {
     private long id;
     private String mid;
     private String title;
     private String released;
-    private String genre;
     private String image;
     private String video;
     private String description;
+    private double cost;
 
     @Id
     @Column(name = "m_id")
@@ -58,16 +56,6 @@ public class Movies {
     }
 
     @Basic
-    @Column(name = "mdb_genre")
-    public String getGenre() {
-        return genre;
-    }
-
-    public void setGenre(String genre) {
-        this.genre = genre;
-    }
-
-    @Basic
     @Column(name = "mdb_image")
     public String getImage() {
         return image;
@@ -75,6 +63,26 @@ public class Movies {
 
     public void setImage(String image) {
         this.image = image;
+    }
+
+    @Basic
+    @Column(name = "m_video")
+    public String getVideo() {
+        return video;
+    }
+
+    public void setVideo(String video) {
+        this.video = video;
+    }
+
+    @Basic
+    @Column(name = "m_cost")
+    public double getCost() {
+        return cost;
+    }
+
+    public void setCost(double cost) {
+        this.cost = cost;
     }
 
     @Basic
@@ -94,17 +102,18 @@ public class Movies {
     public boolean equals(Object o) {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
-        Movies movies = (Movies) o;
-        return id == movies.id &&
-                Objects.equals(mid, movies.mid) &&
-                Objects.equals(title, movies.title) &&
-                Objects.equals(released, movies.released) &&
-                Objects.equals(genre, movies.genre) &&
-                Objects.equals(description, movies.description);
+        Movie movie = (Movie) o;
+        return id == movie.id &&
+                Objects.equals(mid, movie.mid) &&
+                Objects.equals(title, movie.title) &&
+                Objects.equals(released, movie.released) &&
+                Objects.equals(video, movie.video) &&
+                Objects.equals(cost, movie.cost) &&
+                Objects.equals(description, movie.description);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(id, mid, title, released, genre, description);
+        return Objects.hash(id, mid, title, released, video, cost, description);
     }
 }

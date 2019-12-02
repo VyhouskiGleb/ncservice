@@ -1,0 +1,40 @@
+<table class="table_container">
+  <tr class="table_header">
+    <td colspan="5"><label>
+      <input class="search_input" (input)="onInputSearch($event)" value="{{query}}" placeholder="Search"/>
+    </label></td>
+    <td colspan="2">
+      <label>
+        <select  class="form-control" (change)="onSelectChange($event)">
+          <option selected value="10">10</option>
+          <option value="15">15</option>
+          <option value="30">30</option>
+          <option value="60">60</option>
+        </select>
+      </label>
+    </td>
+    <td>Add</td>
+  </tr>
+  <tr class="table_header table_header_shadow table_header_bottom">
+    <td >ID</td>
+    <td class="big_column">Title</td>
+    <td>Description</td>
+    <td class="small_column">Cost</td>
+    <td class="medium_column">Poster</td>
+    <td class="medium_column" >Video (YT ID)</td>
+    <td class="small_column">Status</td>
+    <td class="small_column"></td>
+  </tr>
+  <app-mrow *ngFor="let item of tableData.data" [item]="item"></app-mrow>
+  <tr class="table_header">
+    <td colspan="8" class="table_paginator">
+      <div>
+        <ul class="pagination pagination-sm">
+          <li *ngFor="let paginator of generatePaginationArray(tableData.counter)" class="page-item {{(paginator - 1 == this.currentPage) && 'disabled'}}">
+            <a (click)="onChangeCurrentPage($event, paginator-1)" class="page-link" href="#" tabindex="-1">{{paginator}}</a>
+          </li>
+        </ul>
+      </div>
+    </td>
+  </tr>
+</table>

@@ -1,14 +1,10 @@
 package com.netcracker.edu.fapi.controller;
 
 import com.netcracker.edu.fapi.models.Movie;
-import com.netcracker.edu.fapi.models.User;
-import com.netcracker.edu.fapi.models.entrydata.AddToLibData;
 import com.netcracker.edu.fapi.service.MovieService;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.security.access.prepost.PreAuthorize;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
-
-import java.util.List;
 
 @CrossOrigin(origins = "*", maxAge = 3600)
 @RestController
@@ -17,26 +13,38 @@ public class MoviesController {
 
     @Autowired
     private MovieService movieService;
-    //private UserService userService;
 
-    // todo: @PreAuthorize("hasRole('ADMIN')")
-    @GetMapping("/get-all")
-    public List<Movie> getAllMovies(@RequestParam("end") int end){
-        return movieService.getAll(end);
+
+    /* GET Movies API*/
+    /* GET ALL | GET BY ID | GET BY SEARCH QUERY */
+    /*--------------------------------*/
+    @GetMapping()
+    public ResponseEntity<Movie[]> getAllMovies(){
+        return movieService.getMovies();
     }
 
     @GetMapping("/item")
-    public Movie getMovieItem(@RequestParam("id") int id) {
+    public ResponseEntity<Movie> getMovieItem(@RequestParam("id") long id) {
         return movieService.getItem(id);
     }
 
     @GetMapping("/search")
-    public List<Movie> getMovieItem(@RequestParam("query") String query) {
+    public ResponseEntity<Movie[]> getMovieItem(@RequestParam("query") String query) {
         return movieService.searchMovies(query);
     }
-
-    @PostMapping(value="/add-to-lib")
-    public AddToLibData saveUser(@RequestBody AddToLibData data){
-        return movieService.addToLib(data);
+    /*--------------------------------*/
+    /* SAVE Movies API*/
+    /* CREATE | UPDATE | DELETE */
+    /*--------------------------------*/
+    @PutMapping()
+    public ResponseEntity<Boolean> updateMovieItem(@RequestBody Movie movie) {
+        return movieService.updateMovie(movie);
     }
+
+    @DeleteMapping("/{id}")
+    public ResponseEntity<Boolean> removeMovieItem(@PathVariable long id) {
+        return movieService.removeMovie(id);
+    }
+    /*--------------------------------*/
+
 }

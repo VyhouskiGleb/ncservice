@@ -1,9 +1,10 @@
 package com.netcracker.edu.backend.repository;
 
-import com.netcracker.edu.backend.entity.Users;
+import com.netcracker.edu.backend.entity.User;
 import org.springframework.data.repository.CrudRepository;
 
-public interface UserRepository extends CrudRepository<Users, Long> {
+public interface UserRepository extends CrudRepository<User, Long> {
 
-    Users findByLogin(String login);
+    User findByLogin(String login);
+    User getOneById(long id);
 }

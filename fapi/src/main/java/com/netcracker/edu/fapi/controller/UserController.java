@@ -4,6 +4,7 @@ import com.netcracker.edu.fapi.models.User;
 import com.netcracker.edu.fapi.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.access.prepost.PreAuthorize;
+import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -21,7 +22,7 @@ public class UserController {
     public List<User> getAllUsers(){
         return userService.findAll();
     }
-
+    @PreAuthorize("hasAnyAuthority()")
     @GetMapping("/login/{login}")
     public User getUserByLogin(@PathVariable String login) {
         return userService.findByLogin(login);

@@ -1,0 +1,75 @@
+
+
+.table_container {
+  width: 100%;
+  height: 100%;
+  box-shadow: 0 3px 10px 0 rgba(0,0,0,0.35);
+}
+
+.table_container tr td{
+  padding: 0;
+  height: 100%;
+  border: 1px solid gray;
+  text-align: center;
+}
+
+.table_container td label {
+  width: 100%;
+  height: 100%;
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: center;
+  margin: 0 !important;
+}
+.table_container td label input{
+  padding: 5px 5px;
+  width: 100%;
+  height: 100%;
+  border: none;
+}
+.table_container td label input:focus {
+  background: rgba(189, 255, 135, 0.5);
+}
+.small_column{
+  width:3.5rem;
+}
+.medium_column {
+  width:7.5rem;
+}
+.big_column {
+  width: 20rem;
+}
+.table_paginator {
+  border: none !important;
+}
+.table_paginator div {
+  padding: 5px 0;
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: center;
+}
+.table_paginator div ul {
+  margin: 0;
+}
+.table_header td{
+  padding: 5px 0 !important;
+  font-size: 1.1rem;
+  border: 1px solid #E1E2E1 !important;
+  background: #E1E2E1;
+  font-weight: 500;
+}
+.search_input {
+  padding: 0 10px !important;
+  width: 98% !important;
+  font-size: 1.1rem;
+  font-weight: 500;
+  background: #F5F5F6 !important;
+}
+.search_input:focus {
+  background: #F5F5F6 !important;
+}
+.table_header_bottom td{
+  border-bottom: 1px solid gray !important;
+}
