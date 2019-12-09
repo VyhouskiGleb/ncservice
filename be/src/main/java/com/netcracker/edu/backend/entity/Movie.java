@@ -16,6 +16,7 @@ public class Movie {
     private double cost;
 
     @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "m_id")
     public long getId() {
         return id;
@@ -95,8 +96,19 @@ public class Movie {
         this.description = description;
     }
 
-
-
+    @Override
+    public String toString() {
+        return "Movie{" +
+                "id=" + id +
+                ", mid='" + mid + '\'' +
+                ", title='" + title + '\'' +
+                ", released='" + released + '\'' +
+                ", image='" + image + '\'' +
+                ", video='" + video + '\'' +
+                ", description='" + description + '\'' +
+                ", cost=" + cost +
+                '}';
+    }
 
     @Override
     public boolean equals(Object o) {

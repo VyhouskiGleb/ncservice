@@ -9,6 +9,7 @@ import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
+import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.web.bind.annotation.*;
 
 //AuthenticationController has API exposed to generate JWT token
@@ -24,15 +25,14 @@ public class AuthenticationController {
     private TokenProvider tokenProvider;
 
     @PostMapping("/generate-token")
-    public ResponseEntity register(@RequestBody LoginUser loginUser){
-        final Authentication authentication = authenticationManager.authenticate(
-                new UsernamePasswordAuthenticationToken(
-                        loginUser.getUsername(),
-                        loginUser.getPassword()
-                )
-        );
+    public ResponseEntity register(@RequestBody LoginUser user){
+        Authentication authentication = authenticationManager.authenticate(new UsernamePasswordAuthenticationToken(
+                user.getUsername(),
+                user.getPassword()
+        ));
         SecurityContextHolder.getContext().setAuthentication(authentication);
-        final String token = tokenProvider.generateToken(authentication);
+        String token = tokenProvider.generateToken(authentication);
+        UserDetails userDetails = (UserDetails) authentication.getPrincipal();
         return ResponseEntity.ok(new AuthToken(token));
     }
 }

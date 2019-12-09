@@ -1,0 +1,11 @@
+<div class="notification_container">
+  <div *ngFor="let item of notification" class="notification_box slide-in-right">
+    <i *ngIf="item.status" class="material-icons done_all">
+      done_all
+    </i>
+    <i *ngIf="!item.status" class="material-icons error">
+      error
+    </i>
+    <p> {{item.title}}</p>
+  </div>
+</div>

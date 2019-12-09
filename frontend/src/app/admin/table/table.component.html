@@ -25,7 +25,7 @@
     <td class="small_column">Status</td>
     <td class="small_column"></td>
   </tr>
-  <app-mrow *ngFor="let item of tableData.data" [item]="item"></app-mrow>
+  <app-mrow (onUpdateData) = "onDataLoad()" *ngFor="let item of tableData.data" [item]="item"></app-mrow>
   <tr class="table_header">
     <td colspan="8" class="table_paginator">
       <div>

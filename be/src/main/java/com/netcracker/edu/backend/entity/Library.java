@@ -4,7 +4,7 @@ import java.util.Objects;
 
 @Entity
 @Table(name="users_orders")
-public class Order {
+public class Library {
     private long id;
     private long userId;
     private long utcEnd;
@@ -20,6 +20,7 @@ public class Order {
     }
 
     @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "id")
     public long getId() {
         return id;
@@ -59,7 +60,7 @@ public class Order {
     public boolean equals(Object o) {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
-        Order order = (Order) o;
+        Library order = (Library) o;
         return id == order.id &&
                 Objects.equals(movie, order.movie) &&
                 Objects.equals(userId, order.userId) &&

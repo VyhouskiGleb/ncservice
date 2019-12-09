@@ -1,14 +1,11 @@
 package com.netcracker.edu.backend.service.impl;
 
 import com.netcracker.edu.backend.entity.Movie;
-import com.netcracker.edu.backend.entity.User;
 import com.netcracker.edu.backend.repository.MovieRepository;
 import com.netcracker.edu.backend.service.MoviesService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import java.util.ArrayList;
-import java.util.Collections;
 import java.util.List;
 
 @Service
@@ -18,21 +15,28 @@ public class MovieServiceImpl implements MoviesService {
     private MovieRepository movieRepository;
 
     @Override
-    public List<Movie> getAll() {
-        List<Movie> tmpList = movieRepository.findAll();
-        Collections.reverse(tmpList);
-        return tmpList;
+    public List<Movie> get() {
+        return movieRepository.findAll();
     }
-
     @Override
-    public Movie getById(long id) {
+    public List<Movie> get(String query) {
+        return movieRepository.findAll(query);
+    }
+    @Override
+    public List<Movie> get(long start, long num) { return movieRepository.findAll(start, num); }
+    @Override
+    public List<Movie> get(long start, long num, String query) {
+        return movieRepository.findAll(start, num, query);
+    }
+    @Override
+    public Movie get(long id) {
         return movieRepository.getOneById(id);
     }
 
     @Override
     public boolean updateMovie(long movieId, Movie movie) {
         try {
-            Movie tmpMovie = getById(movieId);
+            Movie tmpMovie = get(movieId);
             if (movie.getTitle() == null) movie.setTitle(tmpMovie.getTitle());
             if (movie.getDescription() == null) movie.setDescription(tmpMovie.getDescription());
             if (movie.getMid() == null) movie.setMid(tmpMovie.getMid());
@@ -62,30 +66,13 @@ public class MovieServiceImpl implements MoviesService {
     }
 
     @Override
-    public List<Movie> getWithBorders(long start, long end) {
-        List<Movie> tmpMovies = movieRepository.findAll();
-        Collections.reverse(tmpMovies);
-
-        List<Movie> resultList = new ArrayList<Movie>();
-
-        try{
-            for(long i = start; i < end; i++ ){
-                resultList.add(tmpMovies.get((int) i));
-            }
-        }
-        catch(Exception ex){
-            System.out.println("LIST PARSE FALTURE");
-        }
-
-        return resultList;
+    public long getCounter() {
+        return movieRepository.count();
     }
 
     @Override
-    public List<Movie> getSearchResult(String query) {
-        List<Movie> tmpList = movieRepository.searchMovies(query);
-        Collections.reverse(tmpList);
-        return tmpList;
+    public long getCounter(String query) {
+        return movieRepository.count(query);
     }
-
 
 }

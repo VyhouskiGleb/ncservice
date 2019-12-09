@@ -32,6 +32,7 @@ public class JwtAuthenticationFilter extends OncePerRequestFilter {
         String header = httpServletRequest.getHeader(SecurityJwtConstants.HEADER_STRING);
         String userName = null;
         String authToken = null;
+
         if (header != null && header.startsWith(SecurityJwtConstants.TOKEN_PREFIX)) {
             authToken = header.replace(SecurityJwtConstants.TOKEN_PREFIX, "");
             try {
@@ -48,6 +49,7 @@ public class JwtAuthenticationFilter extends OncePerRequestFilter {
         }
 
         if (userName != null && SecurityContextHolder.getContext().getAuthentication() == null) {
+
             UserDetails userDetails = userDetailsService.loadUserByUsername(userName);
 
             if (tokenProvider.validateToken(authToken, userDetails)) {
@@ -55,6 +57,7 @@ public class JwtAuthenticationFilter extends OncePerRequestFilter {
                 authentication.setDetails(new WebAuthenticationDetailsSource().buildDetails(httpServletRequest));
                 logger.info("Authenticated user " + userName + ", setting security context.");
                 SecurityContextHolder.getContext().setAuthentication(authentication);
+                System.out.println(SecurityContextHolder.getContext().toString());
             }
         }
 

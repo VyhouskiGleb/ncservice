@@ -84,3 +84,6 @@ app-table {
   height: max-content !important;
   padding: 10px 0 !important;
 }
+app-image-modal {
+  display: block;
+}

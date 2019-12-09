@@ -6,16 +6,10 @@ import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 @JsonIgnoreProperties(ignoreUnknown = true)
 public class Lib {
     private long id;
-    private Movie movie;
-    private long end;
-    private boolean status;
-
-    public Lib(long id, Movie movie, long end, boolean status) {
-        this.id = id;
-        this.movie = movie;
-        this.end = end;
-        this.status = status;
-    }
+    private long userId;
+    private long utcEnd;
+    private String status;
+    private Movie movie = new Movie();
 
     public long getId() {
         return id;
@@ -23,6 +17,30 @@ public class Lib {
 
     public void setId(long id) {
         this.id = id;
+    }
+
+    public long getUserId() {
+        return userId;
+    }
+
+    public void setUserId(long userId) {
+        this.userId = userId;
+    }
+
+    public long getUtcEnd() {
+        return utcEnd;
+    }
+
+    public void setUtcEnd(long utcEnd) {
+        this.utcEnd = utcEnd;
+    }
+
+    public String getStatus() {
+        return status;
+    }
+
+    public void setStatus(String status) {
+        this.status = status;
     }
 
     public Movie getMovie() {
@@ -33,29 +51,25 @@ public class Lib {
         this.movie = movie;
     }
 
-    public long getEnd() {
-        return end;
-    }
-
-    public void setEnd(long end) {
-        this.end = end;
-    }
-
-    public boolean isStatus() {
-        return status;
-    }
-
-    public void setStatus(boolean status) {
+    public Lib(long id, long userId, long utcEnd, String status, Movie movie) {
+        this.id = id;
+        this.userId = userId;
+        this.utcEnd = utcEnd;
         this.status = status;
+        this.movie = movie;
+    }
+
+    public Lib() {
     }
 
     @Override
     public String toString() {
         return "Lib{" +
                 "id=" + id +
+                ", userId=" + userId +
+                ", utcEnd=" + utcEnd +
+                ", status='" + status + '\'' +
                 ", movie=" + movie +
-                ", end=" + end +
-                ", status=" + status +
                 '}';
     }
 }

@@ -19,6 +19,8 @@ export class TableComponent implements OnInit {
   };
   perPage = 10;
   currentPage = 0;
+  updateNow: boolean = false;
+
 
 
   onInputSearch = (event): void => {
@@ -46,8 +48,9 @@ export class TableComponent implements OnInit {
       this.tableData.data = data.data;
       this.tableData.counter = data.counter;
     };
-    (this.query.length === 0) && this.adminService.getList(this.currentPage, this.perPage,"none").subscribe((data) => {DataEventer(data);});
-    (this.query.length !== 0) && this.adminService.searchList(this.currentPage, this.perPage,"none", this.query).subscribe((data) => {DataEventer(data)});
+    this.adminService.getList(this.currentPage, this.perPage,"none", this.query).subscribe(
+      (data) => {DataEventer(data);},
+      );
   };
 
   ngOnInit(): void {

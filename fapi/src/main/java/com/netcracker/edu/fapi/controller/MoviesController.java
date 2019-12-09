@@ -1,6 +1,7 @@
 package com.netcracker.edu.fapi.controller;
 
 import com.netcracker.edu.fapi.models.Movie;
+import com.netcracker.edu.fapi.models.responce.MovieListResponse;
 import com.netcracker.edu.fapi.service.MovieService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
@@ -19,18 +20,27 @@ public class MoviesController {
     /* GET ALL | GET BY ID | GET BY SEARCH QUERY */
     /*--------------------------------*/
     @GetMapping()
-    public ResponseEntity<Movie[]> getAllMovies(){
+    public ResponseEntity<MovieListResponse> get(){
         return movieService.getMovies();
     }
 
+    @GetMapping("/list")
+    public ResponseEntity<MovieListResponse> get(@RequestParam("page") long page, @RequestParam("per") long perPage){
+        return movieService.getMoviesWithPagination(page, perPage);
+    }
+
+    @GetMapping("/list/search")
+    public ResponseEntity<MovieListResponse> get(@RequestParam("page") long page, @RequestParam("per") long perPage, @RequestParam("query") String query) {
+        return movieService.getMoviesWithPaginationAndSearch(page, perPage, query);
+    }
     @GetMapping("/item")
-    public ResponseEntity<Movie> getMovieItem(@RequestParam("id") long id) {
+    public ResponseEntity<Movie> get(@RequestParam("id") long id) {
         return movieService.getItem(id);
     }
 
     @GetMapping("/search")
-    public ResponseEntity<Movie[]> getMovieItem(@RequestParam("query") String query) {
-        return movieService.searchMovies(query);
+    public ResponseEntity<MovieListResponse> getMovieItem(@RequestParam("query") String query) {
+        return movieService.search(query);
     }
     /*--------------------------------*/
     /* SAVE Movies API*/

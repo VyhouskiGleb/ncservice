@@ -11,14 +11,20 @@ export class AdminService {
   private movieArray: Movie[];
 
   constructor(private shttp: HttpClientService) {}
-  getList(currentPage:number, perPage:number,  filter: string ): Observable<{
+  getList(currentPage:number, perPage:number,  filter: string, query: string): Observable<{
     counter: number,
     data: Movie[]
   }> {
-    return this.shttp.get('http://localhost:3808/api/movies').pipe(map((data) => {
+
+    let urlInjection = "";
+    if(query.length !== 0) {
+      query = "&query="+query;
+      urlInjection = "/search"
+    }
+    return this.shttp.get("http://localhost:3808/api/movies/list"+urlInjection+"?page="+currentPage+"&per="+perPage + query ).pipe(map((data) => {
       return {
-        counter: data.length,
-        data: data.slice(currentPage * perPage, (currentPage+1) * perPage)
+        counter: data.counter,
+        data: data.movies
       };
     }));
   }
@@ -33,16 +39,5 @@ export class AdminService {
       .pipe(map((data) => {
         return data;
       }));
-  }
-  searchList(currentPage:number, perPage:number,  filter: string , query: string): Observable<{
-      counter: number,
-      data: Movie[]
-    }> {
-    return this.shttp.get('http://localhost:3808/api/movies/search?query='+query).pipe(map((data) => {
-      return {
-        counter: data.length,
-        data: data.slice(currentPage * perPage, (currentPage+1) * perPage)
-      };
-    }));
   }
 }

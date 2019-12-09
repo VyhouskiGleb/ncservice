@@ -29,6 +29,10 @@ import { UsersEditorComponent } from './admin/users-editor/users-editor.componen
 import { TableComponent } from './admin/table/table.component';
 import { MrowComponent } from './admin/table/mrow/mrow.component';
 import { ActionMessageComponent } from './common/action-message/action-message.component';
+import { ImageModalComponent } from './admin/table/image-modal/image-modal.component';
+
+import {NotificationService} from "./providers/notification.service";
+import { NotificationOutletComponent } from './common/notification-outlet/notification-outlet.component';
 
 const appRoutes: Routes = [
   { path: '', component: MainComponent, data: {type: 'app'} },
@@ -63,6 +67,8 @@ const appRoutes: Routes = [
     TableComponent,
     MrowComponent,
     ActionMessageComponent,
+    ImageModalComponent,
+    NotificationOutletComponent,
   ],
   imports: [
     RouterModule.forRoot(
@@ -74,7 +80,7 @@ const appRoutes: Routes = [
     HttpClientModule,
     ReactiveFormsModule
   ],
-  providers: [MoviesService], // service.ts вспомогательные сущности (прописываем свои компоненты)
+  providers: [MoviesService, NotificationService], // service.ts вспомогательные сущности (прописываем свои компоненты)
   bootstrap: [AppComponent]
 })
 export class AppModule { }

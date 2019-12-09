@@ -50,3 +50,20 @@ td label input:focus {
   transition-duration: 0.5s;
   background: #ed6f6f;
 }
+.image_modal_label {
+  height: 100px !important;
+}
+
+.image_modal_content {
+  width: 100%;
+  height: 100%;
+}
+.image_modal_content label textarea {
+  margin: 5px 0;
+  width: 300px;
+}
+
+.image_modal_content img {
+  width: 300px!important;
+}
+

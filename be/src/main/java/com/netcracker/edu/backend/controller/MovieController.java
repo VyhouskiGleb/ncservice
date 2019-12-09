@@ -15,22 +15,33 @@ public class MovieController {
 
     @GetMapping()
     public List<Movie> getList() {
-        return movieServices.getAll();
+        return movieServices.get();
     }
 
-    @GetMapping("/{start}/{end}")
-    public List<Movie> getListBordered(@PathVariable(name = "start") long start, @PathVariable(name = "end") long end ) {
-        return movieServices.getWithBorders(start,end);
+    @GetMapping("/counter")
+    public long getCounter() { return movieServices.getCounter();}
+
+    @GetMapping("/counter/{query}")
+    public long getCounter(@PathVariable(name = "query") String query) { return movieServices.getCounter(query);}
+
+    @GetMapping("/{query}")
+    public List<Movie> getList(@PathVariable(name = "query") String query) {
+        return movieServices.get(query);
     }
 
-    @GetMapping("/search/{searchQuery}")
-    public List<Movie> getListBordered(@PathVariable(name = "searchQuery") String query) {
-        return movieServices.getSearchResult(query);
+    @GetMapping("/{start}/{per}")
+    public List<Movie> getList(@PathVariable(name = "start") long start, @PathVariable(name = "per") long per ) {
+        return movieServices.get(start, per);
+    }
+
+    @GetMapping("/{start}/{per}/search/{searchQuery}")
+    public List<Movie> getList(@PathVariable(name = "start") long start, @PathVariable(name = "per") long per, @PathVariable(name = "searchQuery") String query) {
+        return movieServices.get(start, per, query);
     }
 
     @GetMapping("/{id}")
     public Movie getById(@PathVariable(name = "id") long movieId) {
-        return movieServices.getById(movieId);
+        return movieServices.get(movieId);
     }
 
     @PutMapping(value = "/{id}")
@@ -43,9 +54,12 @@ public class MovieController {
         return movieServices.saveMovie(movie);
     }
 
+
+
     @DeleteMapping("/{id}")
     public boolean deleteMovie(@PathVariable(name = "id") long id) {
         return movieServices.deleteMovie(id);
     }
+
 
 }

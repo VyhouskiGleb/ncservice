@@ -1,13 +1,13 @@
 package com.netcracker.edu.backend.service.impl;
 
-import com.netcracker.edu.backend.entity.Order;
+import com.netcracker.edu.backend.entity.BillingAccount;
 import com.netcracker.edu.backend.entity.User;
 import com.netcracker.edu.backend.repository.UserRepository;
+import com.netcracker.edu.backend.service.BillingAccountService;
 import com.netcracker.edu.backend.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import java.util.ArrayList;
 import java.util.List;
 
 @Service
@@ -15,6 +15,8 @@ public class UserServiceImpl implements UserService {
 
     @Autowired
     private UserRepository userRepository;
+    @Autowired
+    private BillingAccountService billingAccountService;
 
     @Override
     public List<User> findAll() {
@@ -32,8 +34,25 @@ public class UserServiceImpl implements UserService {
     }
 
     @Override
+    public User createUser(User user) {
+        BillingAccount tmpBilling = billingAccountService.saveBillingAccount(new BillingAccount());
+        System.out.println(tmpBilling.getId());
+        user.setBilling(billingAccountService.saveBillingAccount(new BillingAccount()));
+        return userRepository.save(user);
+    }
+
+    @Override
     public void delete(long id) {
         userRepository.deleteById(id);
+    }
+    @Override
+    public User getById(long id) {
+        try {
+            return userRepository.getOneById(id);
+        }
+        catch (Exception ex) {
+            return new User();
+        }
     }
     @Override
     public User updateUser(long userId, User body) {

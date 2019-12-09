@@ -17,12 +17,11 @@ public class UserController {
     @Autowired
     private UserService userService;
 
-    @PreAuthorize("hasRole('ADMIN')")
+    @PreAuthorize("hasRole('admin')")
     @GetMapping
     public List<User> getAllUsers(){
         return userService.findAll();
     }
-    @PreAuthorize("hasAnyAuthority()")
     @GetMapping("/login/{login}")
     public User getUserByLogin(@PathVariable String login) {
         return userService.findByLogin(login);

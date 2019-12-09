@@ -9,9 +9,21 @@ public class User {
     private String login;
     private String password;
     private String role;
-    private List<Order> orders = new ArrayList<Order>();
+    private List<Library> orders = new ArrayList<Library>();
+    private BillingAccount billing = new BillingAccount();
+
+    @OneToOne(cascade = CascadeType.ALL)
+    @JoinColumn(name = "billing_id")
+
+    public BillingAccount getBilling() {
+        return billing;
+    }
+    public void setBilling(BillingAccount billing) {
+        System.out.print("dd");this.billing = billing;
+    }
 
     @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "user_id")
     public long getId() {
         return id;
@@ -48,14 +60,16 @@ public class User {
         this.role = role;
     }
 
-    @OneToMany(targetEntity=Order.class, fetch=FetchType.EAGER)
+    @OneToMany(targetEntity= Library.class, fetch=FetchType.EAGER)
     @JoinColumn(name="user_id")
-    public List<Order> getOrders() {
+    public List<Library> getOrders() {
         return orders;
     }
-    public void setOrders(List<Order> orders) {
+    public void setOrders(List<Library> orders) {
         this.orders = orders;
     }
+
+
 
     @Override
     public boolean equals(Object o) {
@@ -65,11 +79,12 @@ public class User {
         return id == user.id &&
                 Objects.equals(login, user.login) &&
                 Objects.equals(password, user.password) &&
+                Objects.equals(billing, user.billing) &&
                 Objects.equals(role, user.role) ;
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(id, login, password, role, orders);
+        return Objects.hash(id, login, password, role, orders, billing);
     }
 }

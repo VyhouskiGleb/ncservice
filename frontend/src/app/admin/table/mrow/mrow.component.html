@@ -8,7 +8,14 @@
 <td><label>
   <input type="text" (input)="onDataChange($event, 'cost')" value="{{item.cost}}"/>
 </label></td>
-<td class="small_column"><a target="_blank" href="{{item.image}}">Open</a></td>
+<td class="small_column ">
+  <app-image-modal class="image_modal_content">
+    <img src="{{item.image}}" alt="Poster" title="Poster">
+    <label class="image_modal_label">
+      <textarea (input)="onDataChange($event, 'image')" >{{item.image}}</textarea>
+    </label>
+  </app-image-modal>
+</td>
 <td><label>
   <input type="text" (input)="onDataChange($event, 'video')" value="{{item.video}}"/>
 </label></td>
