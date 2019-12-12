@@ -20,10 +20,15 @@ public class LibController {
         return libService.get();
     }
 
-    @GetMapping("/{start}/{per}")
-    public LibListResponce getList(@PathVariable(name = "start") long start,@PathVariable(name = "per") long perPage ) {
-        return libService.get(start, perPage);
+    @GetMapping("/{start}/{per}/{userId}")
+    public LibListResponce getList(@PathVariable(name = "start") long start,@PathVariable(name = "per") long perPage, @PathVariable(name = "userId") long userId ) {
+        return libService.get(start, perPage, userId);
     }
+    @GetMapping("/{start}/{per}/{status}/{userId}")
+    public LibListResponce getUserList(@PathVariable(name = "start") long start,@PathVariable(name = "per") long perPage, @PathVariable(name = "status") String status, @PathVariable(name = "userId") long userId ) {
+        return libService.get(start, perPage,status, userId);
+    }
+
 
     @GetMapping("/status/{status}")
     public List<Library> getActiveList(@PathVariable(name = "status") String status) {

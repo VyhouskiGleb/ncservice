@@ -1,0 +1,15 @@
+<div class="movecard__div_item">
+    <img src="{{item.image}}" alt="movie logo" title="movie logo"/>
+    <div class="movecard__div_infobox">
+        <p class="movecard__p_movielabel">{{item.title}} <strong *ngIf="subscribed">{{this.getYoutubeLikeToDisplay(utcEnd)}}</strong></p>
+        <p class="description_status">{{hiderStatus === true ? fullDescription : shortDescription}}</p>
+        <a class="description_status_a" *ngIf="!hiderStatus" (click)="handleShowHide($event,true)" href="#show_all"><i class="material-icons">keyboard_arrow_down</i><span>show description</span></a>
+        <a class="description_status_a" *ngIf="hiderStatus" (click)="handleShowHide($event,false)" href="#show_all"><i class="material-icons">keyboard_arrow_up</i><span>hide description</span></a>
+        <div class="moviecard_div_controlsbox">
+            <app-btn class="moviecard_btn_button" (click)="handleClick()" icon='play_circle_outline'  btntitle='Open'></app-btn>
+            <app-btn *ngIf="!subscribed" class="moviecard_btn_button" (click)="handleConfirm()" icon='check_circle_outline' hoverBackground="#5A9216" background="#7CB342" btntitle='Add: {{item.cost}}$'></app-btn>
+            <app-btn *ngIf="subscribed" class="moviecard_btn_button" (click)="handleUnsubscribe()" icon='clear' hoverBackground="#9b2222" background="#e23f3f" btntitle='Unsubscribe'></app-btn>
+        </div>
+    </div>
+</div>
+<app-movecardmodal *ngIf="fullWidget" (modalEvent) = "handleWidget($event)" [modalItem]="item" ></app-movecardmodal>

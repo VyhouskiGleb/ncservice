@@ -1,9 +1,9 @@
-export interface Movie {
-  id: number;
-  title: string;
-  description: string;
-  image: string;
-  video: string;
-  end: number;
-  status: string;
+import {Movie} from "./movie";
+
+export interface Lib {
+  id: number,
+  userId: number,
+  utcEnd: number;
+  status: number;
+  movie: Movie;
 }

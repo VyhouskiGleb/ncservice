@@ -11,11 +11,11 @@ export class TableComponent implements OnInit {
 
   query = "";
   tableData: {
-    counter: number,
-    data: Movie[]
-  } = {
-    counter: 0,
-    data: []
+      counter: number,
+      data: Movie[]
+    } = {
+      counter: 0,
+      data: []
   };
   perPage = 10;
   currentPage = 0;

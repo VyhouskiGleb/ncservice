@@ -1,0 +1,10 @@
+import {Billing} from "./billing";
+import {Lib} from "./lib";
+
+export interface User {
+  login: string;
+  token: string;
+  role: string;
+  billing : Billing;
+  lib : Lib;
+}

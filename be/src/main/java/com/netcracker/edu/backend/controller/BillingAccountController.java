@@ -1,5 +1,6 @@
 package com.netcracker.edu.backend.controller;
 
+import com.netcracker.edu.backend.dto.BillingResponse;
 import com.netcracker.edu.backend.entity.BillingAccount;
 import com.netcracker.edu.backend.service.BillingAccountService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -19,14 +20,9 @@ public class BillingAccountController {
         this.billingAccountService = billingAccountService;
     }
 
-    @RequestMapping(value = "/{id}", method = RequestMethod.GET)
-    public ResponseEntity<BillingAccount> getBillingAccountById(@PathVariable(name = "id") Long id) {
-        Optional<BillingAccount> billingAccount = billingAccountService.getBillingAccountById(id);
-        if (billingAccount.isPresent()) {
-            return ResponseEntity.ok(billingAccount.get());
-        } else {
-            return ResponseEntity.notFound().build();
-        }
+    @GetMapping("/{id}")
+    public BillingResponse getBillingAccountById(@PathVariable(name = "id") long id) {
+        return billingAccountService.getBillingAccountById(id);
     }
 
     @RequestMapping(value = "", method = RequestMethod.GET)
@@ -37,6 +33,11 @@ public class BillingAccountController {
     @RequestMapping(method = RequestMethod.POST)
     public BillingAccount saveBillingAccount(@RequestBody BillingAccount account) {
         return billingAccountService.saveBillingAccount(account);
+    }
+
+    @PutMapping("/{userId}/{money}")
+    public BillingResponse updateBillingAccount(@PathVariable(name = "userId") long userId, @PathVariable(name = "money") double money, @RequestBody BillingAccount account) {
+        return billingAccountService.updateBillingAccount(money, userId, account);
     }
 
     @RequestMapping(value = "/{id}", method = RequestMethod.DELETE)

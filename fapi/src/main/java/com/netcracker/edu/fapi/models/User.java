@@ -1,23 +1,27 @@
 package com.netcracker.edu.fapi.models;
 
-import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+import java.util.List;
 
-@JsonIgnoreProperties(ignoreUnknown = true)
 public class User {
 
     private long id;
     private String login;
     private String password;
     private String role;
+    private List<Lib> orders;
+    private BillingAccountViewModel billing;
+
 
     public User() {
     }
 
-    public User(long id, String login, String password, String role) {
+    public User(long id, String login, String password, String role, List<Lib> orders, BillingAccountViewModel billing) {
         this.id = id;
         this.login = login;
         this.password = password;
         this.role = role;
+        this.orders = orders;
+        this.billing = billing;
     }
 
     public long getId() {
@@ -40,6 +44,14 @@ public class User {
         return password;
     }
 
+    public BillingAccountViewModel getBilling() {
+        return billing;
+    }
+
+    public void setBilling(BillingAccountViewModel billing) {
+        this.billing = billing;
+    }
+
     public void setPassword(String password) {
         this.password = password;
     }
@@ -52,6 +64,14 @@ public class User {
         this.role = role;
     }
 
+    public List<Lib> getOrders() {
+        return orders;
+    }
+
+    public void setOrders(List<Lib> orders) {
+        this.orders = orders;
+    }
+
     @Override
     public String toString() {
         return "User{" +
@@ -59,6 +79,8 @@ public class User {
                 ", login='" + login + '\'' +
                 ", password='" + password + '\'' +
                 ", role='" + role + '\'' +
+                ", orders=" + orders +
+                ", billing=" + billing +
                 '}';
     }
 }

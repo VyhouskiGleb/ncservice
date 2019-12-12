@@ -1,54 +1,50 @@
 package com.netcracker.edu.fapi.models;
 
-import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
-
-@JsonIgnoreProperties(ignoreUnknown = true)
 public class BillingAccountViewModel {
 
-    private int id;
-    private String address;
-    private String username;
-    private String email;
+    private Long id;
+    private String credit;
+    private double balance;
 
     public BillingAccountViewModel() {
     }
 
-    public BillingAccountViewModel(int id, String address, String username) {
-        this.id = id;
-        this.address = address;
-        this.username = username;
-        this.email = email;
+    @Override
+    public String toString() {
+        return "BillingAccountViewModel{" +
+                "id=" + id +
+                ", credit='" + credit + '\'' +
+                ", balance=" + balance +
+                '}';
     }
 
-    public int getId() {
+    public BillingAccountViewModel(Long id, String credit, double balance) {
+        this.id = id;
+        this.credit = credit;
+        this.balance = balance;
+    }
+
+    public Long getId() {
         return id;
     }
 
-    public void setId(int id) {
+    public void setId(Long id) {
         this.id = id;
     }
 
-    public String getAddress() {
-        return address;
+    public String getCredit() {
+        return credit;
     }
 
-    public void setAddress(String address) {
-        this.address = address;
+    public void setCredit(String credit) {
+        this.credit = credit;
     }
 
-    public String getUsername() {
-        return username;
+    public double getBalance() {
+        return balance;
     }
 
-    public void setUsername(String username) {
-        this.username = username;
-    }
-
-    public String getEmail() {
-        return email;
-    }
-
-    public void setEmail(String email) {
-        this.email = email;
+    public void setBalance(double balance) {
+        this.balance = balance;
     }
 }

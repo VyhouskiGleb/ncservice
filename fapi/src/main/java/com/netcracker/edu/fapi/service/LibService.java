@@ -1,16 +1,14 @@
 package com.netcracker.edu.fapi.service;
 
-import com.netcracker.edu.fapi.dto.LibListResponce;
-import com.netcracker.edu.fapi.dto.LibResponce;
+import com.netcracker.edu.fapi.dto.LibListResponse;
+import com.netcracker.edu.fapi.dto.LibResponse;
 import com.netcracker.edu.fapi.models.Lib;
 
-import java.util.List;
-
 public interface LibService {
-    LibListResponce get();
-    LibListResponce get(String status);
-    LibListResponce get(long start, long perPage);
-    LibListResponce get(long start, long perPage, String Status, String query);
-    LibResponce create(Lib item);
-    LibResponce update(long id, Lib item);
+    LibListResponse get();
+    LibListResponse get(String status);
+    LibListResponse get(long start, long perPage, String username);
+    LibListResponse get(long start, long perPage, String Status, String username);
+    LibResponse create(Lib item, String username);
+    LibResponse update(long id, Lib item, String username);
 }

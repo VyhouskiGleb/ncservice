@@ -1,0 +1,4 @@
+<div class="user_details">
+  <span><i class="material-icons">person</i><span>{{(user !== undefined) && user.login}}</span></span>
+  <span><i class="material-icons">account_balance_wallet</i><span>Balance: {{(user !== undefined) && user.billing.balance.toFixed(2)}} USD</span></span>
+</div>

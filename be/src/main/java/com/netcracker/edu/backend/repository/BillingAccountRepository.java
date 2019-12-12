@@ -6,4 +6,5 @@ import org.springframework.stereotype.Repository;
 
 @Repository
 public interface BillingAccountRepository extends CrudRepository<BillingAccount, Long> {
+    BillingAccount getById(long id);
 }

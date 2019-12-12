@@ -6,6 +6,9 @@ import com.netcracker.edu.backend.service.BillingAccountService;
 import com.netcracker.edu.backend.service.ChargingService;
 import com.netcracker.edu.backend.service.LibService;
 import com.netcracker.edu.backend.service.UserService;
+import jdk.nashorn.internal.runtime.logging.DebugLogger;
+import org.apache.commons.logging.Log;
+import org.apache.commons.logging.LogFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.scheduling.annotation.Scheduled;
@@ -15,6 +18,7 @@ import java.util.Date;
 
 @Service
 public class ChargingServiceImpl implements ChargingService {
+    protected final Log logger = LogFactory.getLog(this.getClass());
     @Value("${application.billing.rotation}")
     private String orderRotation;
     @Autowired
@@ -29,7 +33,7 @@ public class ChargingServiceImpl implements ChargingService {
         Iterable<Library> tmpLibrary = libService.get("active");
         for (Library item : tmpLibrary) {
             Date tmpDate = new Date();
-            System.out.println(item.getUtcEnd() - tmpDate.getTime() - 5000);
+            logger.info("Subscription final time id: " + item.getId() + " timer: " + (item.getUtcEnd() - tmpDate.getTime() - 5000) +"ms");
             if(tmpDate.getTime() + 5000 >= item.getUtcEnd() ) this.autoSubscriptionReplay(item);
         }
 
@@ -43,12 +47,11 @@ public class ChargingServiceImpl implements ChargingService {
             tmpBilling.setBalance(tmpBilling.getBalance() - movieCost);
             billingAccountService.saveBillingAccount(tmpBilling);
             Date tmpDate = new Date();
-            System.out.println("Good money");
-
+            logger.info("Auto renew id: "+item.getId());
             item.setUtcEnd(tmpDate.getTime() + Long.parseLong(orderRotation));
         }else {
             item.setStatus("finished");
-            System.out.println("Finished");
+            logger.info("Finished id: " +item.getId());
         }
         billingAccountService.saveBillingAccount(tmpBilling);
         libService.update(item.getId(), item);

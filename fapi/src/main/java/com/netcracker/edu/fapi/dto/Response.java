@@ -2,16 +2,16 @@ package com.netcracker.edu.fapi.dto;
 
 import java.util.Objects;
 
-public class Responce {
+public class Response {
     private boolean status;
     private String  message;
 
 
-    public boolean status() {
+    public boolean isStatus() {
         return status;
     }
 
-    public void status(boolean status) {
+    public void setStatus(boolean status) {
         this.status = status;
     }
 
@@ -27,7 +27,7 @@ public class Responce {
     public boolean equals(Object o) {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
-        Responce that = (Responce) o;
+        Response that = (Response) o;
         return status == that.status &&
                 Objects.equals(message, that.message);
     }
@@ -36,8 +36,11 @@ public class Responce {
     public int hashCode() {
         return Objects.hash(status, message);
     }
+    public Response() {
 
-    public Responce(boolean status, String message) {
+    }
+
+    public Response(boolean status, String message) {
         this.status = status;
         this.message = message;
     }

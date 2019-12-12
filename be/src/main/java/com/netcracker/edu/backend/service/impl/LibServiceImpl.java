@@ -44,15 +44,23 @@ public class LibServiceImpl implements LibService {
     }
 
     @Override
-    public LibListResponce get(long start, long perPage) {
+    public LibListResponce get(long start, long perPage, long userId) {
         try{
-            return new LibListResponce(true, "OK", libraryRepository.findAll(start, perPage));
+            return new LibListResponce(true, "OK",this.getCounter(userId), libraryRepository.findAll(start, perPage, userId));
         }
         catch(Exception ex){
-            return  new LibListResponce(false, "Server Exception", new ArrayList<Library>());
+            return  new LibListResponce(false, "Server Exception",0, new ArrayList<Library>());
         }
     }
-
+    @Override
+    public LibListResponce get(long start, long perPage, String status, long userId) {
+        try{
+            return new LibListResponce(true, "OK",this.getCounter(userId, status), libraryRepository.findAll(start, perPage, status, userId));
+        }
+        catch(Exception ex){
+            return  new LibListResponce(false, "Server Exception",0, new ArrayList<Library>());
+        }
+    }
     @Override
     public List<Library> get(String status) {
         try{
@@ -78,12 +86,14 @@ public class LibServiceImpl implements LibService {
         try {
             Library tmpLibraryItem = this.get(id);
             library.setId(id);
-            if(library.getMovie().getId() == 0) library.setMovie(tmpLibraryItem.getMovie());
+            if(library.getMovie().getId() == 0) {
+                library.setMovie(tmpLibraryItem.getMovie());
+            }
             Library tmpLib = libraryRepository.save(library);
             return new LibResponce(true, "Ok", tmpLib);
         }
         catch(Exception ex){
-            return new LibResponce(false, "Server Exception", new Library());
+            return new LibResponce(false, "Server Exception", null);
         }
     }
 
@@ -91,12 +101,16 @@ public class LibServiceImpl implements LibService {
     public LibResponce add(Library library) {
         try {
             Date tmpDate = new Date();
-            if(library.getMovie().getId() == 0) return new LibResponce(false, "Movie is not provided", new Library());
+            if(library.getMovie().getId() == 0) {
+                return new LibResponce(false, "Movie is not provided", null);
+            }
             Movie tmpMovie = moviesService.get(library.getMovie().getId());
             library.setMovie(tmpMovie);
             User user = userService.getById(library.getUserId());
             BillingAccount userBillingAccount = user.getBilling();
-            if(tmpMovie.getCost() > userBillingAccount.getBalance()) return new LibResponce(false, "You don't have enough money", new Library());
+            if(tmpMovie.getCost() > userBillingAccount.getBalance()){
+                return new LibResponce(false, "You don't have enough money", null);
+            }
             userBillingAccount.setBalance(userBillingAccount.getBalance() - tmpMovie.getCost());
             library.setUtcEnd(tmpDate.getTime() + Long.parseLong(orderRotation));
             Library tmpLib = libraryRepository.save(library);
@@ -104,7 +118,14 @@ public class LibServiceImpl implements LibService {
             return new LibResponce(true, "OK", tmpLib);
         }
         catch(Exception ex){
-            return new LibResponce(false, "Server Exception", new Library());
+            return new LibResponce(false, "Server Exception", null);
         }
     }
+
+    private long getCounter() {
+        return libraryRepository.count();
+    }
+
+    private long getCounter(long userId) { return libraryRepository.countAllByUserId(userId); }
+    private long getCounter(long userId, String status) { return libraryRepository.countAllByUserIdAndStatus(userId, status); }
 }

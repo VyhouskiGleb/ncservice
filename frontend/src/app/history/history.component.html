@@ -3,9 +3,20 @@
         <div class="col-md-4 col-lg-2 col-sm-6 col-12 app_component_navigationcontainer">
             <app-navigation class="navigation_component_box"></app-navigation>
         </div>
-        <div class="col-md-8 col-lg-10 col-sm-6 col-12">
-            <p>history works!</p>
+        <div  class="col-md-8 col-lg-10 col-sm-6 col-12 history-container">
+          <div *ngFor="let item of libArray.data" class="alert alert-primary" role="alert">
+            <h4 class="alert-heading">{{item.movie.title}}</h4>
+            <p>{{item.movie.description}}</p>
+            <hr>
+            <p class="mb-0">Subscription status: {{item.status}} {{item.utcEnd| date:'medium'}}</p>
+          </div>
+          <div class="pagination_box">
+            <ul class="pagination pagination-sm">
+              <li *ngFor="let paginator of generatePaginationArray(libArray.counter)" class="page-item {{(paginator - 1 == this.currentPage) && 'disabled'}}">
+                <a (click)="onChangeCurrentPage($event, paginator-1)" class="page-link" href="#" tabindex="-1">{{paginator}}</a>
+              </li>
+            </ul>
+          </div>
         </div>
      </div>
 </div>
-      

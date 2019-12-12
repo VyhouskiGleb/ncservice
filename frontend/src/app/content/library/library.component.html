@@ -1,5 +1,5 @@
-<div class="hirelist_div_hlcontainer" >
-    <app-moviecard  *ngFor="let movie of movies" [item] = "movie"></app-moviecard>
+<div class="movie_div_container" >
+    <app-moviecard  *ngFor="let item of lib.data" [item] = "item.movie" [attr.data-index]="item.id"></app-moviecard>
     <!--<app-preloader></app-preloader>-->
     <app-preloader-small [status]="activePageEvent" ></app-preloader-small>
 </div>

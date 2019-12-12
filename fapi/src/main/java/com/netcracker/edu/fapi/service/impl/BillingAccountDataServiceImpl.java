@@ -1,43 +1,48 @@
 package com.netcracker.edu.fapi.service.impl;
 
+import com.netcracker.edu.fapi.dto.BillingAccountResponse;
 import com.netcracker.edu.fapi.models.BillingAccountViewModel;
+import com.netcracker.edu.fapi.models.Movie;
+import com.netcracker.edu.fapi.models.User;
 import com.netcracker.edu.fapi.service.BillingAccountDataService;
+import com.netcracker.edu.fapi.service.UserService;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
-import org.springframework.http.ResponseEntity;
+import org.springframework.http.HttpEntity;
+import org.springframework.http.HttpMethod;
 import org.springframework.stereotype.Service;
 import org.springframework.web.client.RestTemplate;
-
-import java.util.Arrays;
-import java.util.Collections;
-import java.util.List;
 
 @Service
 public class BillingAccountDataServiceImpl implements BillingAccountDataService {
 
+    @Autowired
+    UserService userService;
+
     @Value("${backend.server.url}")
-    private String backendServerUrl;
-
+    private String beServerUrl;
     @Override
-    public List<BillingAccountViewModel> getAll() {
+    public BillingAccountResponse updateBillingAccount(String userName, double money, BillingAccountViewModel account) {
+        User tmpUser = userService.findByLogin(userName);
+        long userId = tmpUser.getId();
+        long baId = tmpUser.getBilling().getId();
+        account.setId(baId);
         RestTemplate restTemplate = new RestTemplate();
-        BillingAccountViewModel[] billingAccountViewModelResponse = restTemplate.getForObject(backendServerUrl + "/api/billing-accounts/", BillingAccountViewModel[].class);
-        return billingAccountViewModelResponse == null ? Collections.emptyList() : Arrays.asList(billingAccountViewModelResponse);
-    }
-
-    @Override
-    public BillingAccountViewModel getBillingAccountById(Long id) {
-        RestTemplate restTemplate = new RestTemplate();
-        return restTemplate.getForObject(backendServerUrl + "/api/billing-accounts/" + id, BillingAccountViewModel.class);
+        HttpEntity<BillingAccountViewModel> entity = new HttpEntity<BillingAccountViewModel>(account);
+        return restTemplate.exchange(beServerUrl+"/api/billing-accounts/"+userId+"/"+money, HttpMethod.PUT, entity, BillingAccountResponse.class).getBody();
     }
     @Override
-    public BillingAccountViewModel saveBillingAccount(BillingAccountViewModel account) {
-        RestTemplate restTemplate = new RestTemplate();
-        return restTemplate.postForEntity(backendServerUrl + "/api/billing-accounts", account, BillingAccountViewModel.class).getBody();
-    }
+    public BillingAccountResponse getUserBillingAccount(String userName) {
+        try {
+            User tmpUser = userService.findByLogin(userName);
+            long baId = tmpUser.getBilling().getId();
+            RestTemplate restTemplate = new RestTemplate();
+            return restTemplate.getForObject(beServerUrl+"/api/billing-accounts/"+baId, BillingAccountResponse.class );
+        }
+        catch(Exception ex) {
+            return null;
+        }
 
-    @Override
-    public void deleteBillingAccount(Long id) {
-        RestTemplate restTemplate = new RestTemplate();
-        restTemplate.delete(backendServerUrl + "/api/billing-accounts/" + id);
+
     }
 }

@@ -45,10 +45,7 @@ export class ContentComponent implements OnInit, AfterViewInit {
       const position = e.target.scrollTop + this.host.nativeElement.offsetHeight;
       if (position >= counter) {
         this.globalPage++;
-        console.log(this.globalPage);
         this.loadingStatus = true;
-      } else  {
-        console.log(this.globalPage);
       }
     };
   }

@@ -3,13 +3,13 @@ package com.netcracker.edu.backend.service;
 import com.netcracker.edu.backend.dto.LibListResponce;
 import com.netcracker.edu.backend.dto.LibResponce;
 import com.netcracker.edu.backend.entity.Library;
-import com.netcracker.edu.backend.models.Lib;
 
 import java.util.List;
 
 public interface LibService {
     List<Library> get();
-    LibListResponce get(long start, long perPage);
+    LibListResponce get(long start, long perPage, long userId);
+    LibListResponce get(long start, long perPage, String status, long userId);
     List<Library> get(String status);
     Library get(long id);
 

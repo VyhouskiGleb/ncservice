@@ -1,0 +1,42 @@
+<div class="container-fluid app__component_container">
+  <div class="row">
+    <div class="col-md-4 col-lg-2 col-sm-6 col-12 app_component_navigationcontainer">
+      <app-navigation class="navigation_component_box"></app-navigation>
+    </div>
+    <div  class="col-md-8 col-lg-10 col-sm-6 col-12 refill_box" >
+      <app-preloader-small [status]="!ready" ></app-preloader-small>
+      <form *ngIf="ready" class="credit_card_box" [formGroup]="refillForm" (ngSubmit)="submit()">
+        <h4>Input Credit card data</h4>
+        <div class="alert alert-danger"
+             *ngIf="refillForm.controls['cardNumber'].invalid && refillForm.controls['cardNumber'].touched">
+          Not valid card number
+        </div>
+        <div class="alert alert-danger"
+             *ngIf="refillForm.controls['cardNumber'].valid && refillForm.controls['ownerName'].invalid && refillForm.controls['ownerName'].touched">
+          Not valid owner name
+        </div>
+        <div class="alert alert-danger"
+                   *ngIf="refillForm.controls['cardNumber'].valid && refillForm.controls['ownerName'].valid && refillForm.controls['moneyValue'].invalid && refillForm.controls['moneyValue'].touched">
+          Not valid money value
+        </div>
+        <div class="alert alert-danger"
+             *ngIf="refillForm.controls['cardNumber'].valid && refillForm.controls['ownerName'].valid && refillForm.controls['dateValue'].invalid && refillForm.controls['dateValue'].touched">
+          Not valid date value
+        </div>
+
+        <label class="l1">
+          <input formControlName="cardNumber" class="form-control form-control-lg" type="text" placeholder="5555 5555 5555 5555">
+        </label>
+        <label class="l2">
+          <input formControlName="ownerName" class="form-control form-control-lg" type="text" placeholder="OWNER">
+          <input formControlName="dateValue" class="form-control form-control-lg" type="text" placeholder="MM/YY">
+        </label>
+        <label>
+          <input formControlName="moneyValue" class="form-control form-control-lg" type="text" placeholder="MONEY">
+        </label>
+        <button [disabled]="refillForm.invalid" type="submit" class="btn btn-primary btn-success"><i class="material-icons">done_outline</i><span>Confirm</span></button>
+
+      </form>
+    </div>
+  </div>
+</div>

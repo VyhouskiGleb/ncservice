@@ -1,7 +1,8 @@
 package com.netcracker.edu.fapi.service.impl;
 
+import com.netcracker.edu.fapi.dto.MovieListResponse;
 import com.netcracker.edu.fapi.models.Movie;
-import com.netcracker.edu.fapi.models.responce.MovieListResponse;
+
 import com.netcracker.edu.fapi.service.MovieService;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.http.HttpEntity;
@@ -36,16 +37,14 @@ public class MovieServiceImpl implements MovieService {
     }
 
     @Override
-    public ResponseEntity<MovieListResponse> getMovies() {
+    public MovieListResponse getMovies() {
         try {
-
             RestTemplate restTemplate = new RestTemplate();
             Movie[] beRequestResult = restTemplate.getForObject(beServerUrl + "/api/movie", Movie[].class);
-            MovieListResponse result = new MovieListResponse(true, this.getCounter(), beRequestResult);
-            return new ResponseEntity<>(result, HttpStatus.OK);
+            return new MovieListResponse(true, "OK", this.getCounter(), beRequestResult);
         }
         catch (Exception ex) {
-            return new ResponseEntity<>(new MovieListResponse(false, 0, new Movie[0]), HttpStatus.NOT_FOUND);
+            return new MovieListResponse(true, "OK", this.getCounter(), null);
         }
     }
 
@@ -65,15 +64,15 @@ public class MovieServiceImpl implements MovieService {
         }
     }
     @Override
-    public ResponseEntity<MovieListResponse> search(String query) {
+    public MovieListResponse search(String query) {
         try {
             RestTemplate restTemplate = new RestTemplate();
             Movie[] beRequestResult = restTemplate.getForObject(beServerUrl+"/api/movie/search/" + query, Movie[].class);
-            MovieListResponse result = new MovieListResponse(true, 0, beRequestResult);
-            return new ResponseEntity<>(result, HttpStatus.OK);
+            return new MovieListResponse(true, "OK", this.getCounter(query), beRequestResult);
         }
         catch (Exception ex) {
-            return new ResponseEntity<>(new MovieListResponse(false, this.getCounter(query), new Movie[0]), HttpStatus.NOT_FOUND);
+            System.out.println(ex.toString());
+            return new MovieListResponse(false,"", 0, new Movie[0]);
         }
     }
 
@@ -103,30 +102,28 @@ public class MovieServiceImpl implements MovieService {
     }
 
     @Override
-    public ResponseEntity<MovieListResponse> getMoviesWithPagination(long page, long perPage) {
+    public MovieListResponse getMoviesWithPagination(long page, long perPage) {
         try {
             long start = page * perPage;
             RestTemplate restTemplate = new RestTemplate();
             Movie[] beRequestResult = restTemplate.getForObject(beServerUrl + "/api/movie/"+start+"/"+perPage, Movie[].class);
-            MovieListResponse result = new MovieListResponse(true, this.getCounter(), beRequestResult);
-            return new ResponseEntity<>(result, HttpStatus.OK);
+            return new MovieListResponse(true,"", this.getCounter(), beRequestResult);
         }
         catch (Exception ex) {
-            return new ResponseEntity<>(new MovieListResponse(false, 0, new Movie[0]), HttpStatus.NOT_FOUND);
+            return new MovieListResponse(false,"", 0, new Movie[0]);
         }
     }
 
     @Override
-    public ResponseEntity<MovieListResponse> getMoviesWithPaginationAndSearch(long page, long perPage,  String query) {
+    public MovieListResponse getMoviesWithPaginationAndSearch(long page, long perPage,  String query) {
         try {
             long start = page * perPage;
             RestTemplate restTemplate = new RestTemplate();
             Movie[] beRequestResult = restTemplate.getForObject(beServerUrl + "/api/movie/"+start+"/"+perPage+"/search/"+query, Movie[].class);
-            MovieListResponse result = new MovieListResponse(true, this.getCounter(query), beRequestResult);
-            return new ResponseEntity<>(result, HttpStatus.OK);
+            return new MovieListResponse(true,"", this.getCounter(query), beRequestResult);
         }
         catch (Exception ex) {
-            return new ResponseEntity<>(new MovieListResponse(false, 0, new Movie[0]), HttpStatus.NOT_FOUND);
+            return new MovieListResponse(false, "",0, new Movie[0]);
         }
     }
 }

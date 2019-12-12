@@ -1,6 +1,7 @@
 package com.netcracker.edu.fapi.controller;
 
 import com.netcracker.edu.fapi.models.User;
+import com.netcracker.edu.fapi.models.ViewUser;
 import com.netcracker.edu.fapi.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.access.prepost.PreAuthorize;
@@ -22,9 +23,10 @@ public class UserController {
     public List<User> getAllUsers(){
         return userService.findAll();
     }
+    @PreAuthorize("hasRole('admin') or hasRole('user')")
     @GetMapping("/login/{login}")
-    public User getUserByLogin(@PathVariable String login) {
-        return userService.findByLogin(login);
+    public ViewUser getUserByLogin(@PathVariable String login) {
+        return userService.findViewByLogin(login);
     }
 
     @PostMapping(value="/signup", produces = "application/json")

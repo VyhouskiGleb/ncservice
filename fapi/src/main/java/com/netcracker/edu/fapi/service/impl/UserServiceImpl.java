@@ -1,6 +1,8 @@
 package com.netcracker.edu.fapi.service.impl;
 
+import com.netcracker.edu.fapi.models.Lib;
 import com.netcracker.edu.fapi.models.User;
+import com.netcracker.edu.fapi.models.ViewUser;
 import com.netcracker.edu.fapi.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
@@ -22,6 +24,14 @@ public class UserServiceImpl implements UserDetailsService, UserService {
 
     @Autowired
     private BCryptPasswordEncoder bCryptPasswordEncoder;
+
+    @Override
+    public ViewUser findViewByLogin(String login) {
+        RestTemplate restTemplate = new RestTemplate();
+        User tmpUser = restTemplate.getForObject(backendServerUrl + "/api/user/login/" + login, User.class);
+        assert tmpUser != null;
+        return new ViewUser(tmpUser.getId(),tmpUser.getLogin(), tmpUser.getRole(), tmpUser.getOrders(), tmpUser.getBilling());
+    }
 
     @Override
     public User findByLogin(String login) {
@@ -54,7 +64,6 @@ public class UserServiceImpl implements UserDetailsService, UserService {
 
     private Set<SimpleGrantedAuthority> getAuthority(User user) {
         Set<SimpleGrantedAuthority> authorities = new HashSet<>();
-        System.out.println(user.getRole());
         authorities.add(new SimpleGrantedAuthority("ROLE_" +user.getRole()));
         return authorities;
     }

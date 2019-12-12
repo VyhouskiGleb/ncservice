@@ -1,0 +1,13 @@
+<button class="table_button" (click) = "handleModalOpen($event)">Open</button>
+
+<div *ngIf="open" class="image_modal_box ">
+  <div class="image_modal_container {{animation}}">
+    <div class="modal_header">
+      <p class="modal__header_p">
+        Movie POSTER
+      </p>
+      <i class="material-icons modal_close_button" (click)="handleModalOpen($event)">close</i>
+    </div>
+    <div class="main_box"><ng-content></ng-content></div>
+  </div>
+</div>

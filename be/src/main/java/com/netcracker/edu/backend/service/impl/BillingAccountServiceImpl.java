@@ -1,5 +1,6 @@
 package com.netcracker.edu.backend.service.impl;
 
+import com.netcracker.edu.backend.dto.BillingResponse;
 import com.netcracker.edu.backend.entity.BillingAccount;
 import com.netcracker.edu.backend.repository.BillingAccountRepository;
 import com.netcracker.edu.backend.service.BillingAccountService;
@@ -24,8 +25,29 @@ public class BillingAccountServiceImpl implements BillingAccountService {
     }
 
     @Override
-    public Optional<BillingAccount> getBillingAccountById(Long id) {
-        return repository.findById(id);
+    public BillingResponse updateBillingAccount(double money, long userId, BillingAccount account) {
+        try {
+            BillingAccount tmpBilling = repository.getById(account.getId());
+            tmpBilling.setBalance(tmpBilling.getBalance() + money);
+            tmpBilling.setCredit(account.getCredit());
+            return new BillingResponse(true, "User balance updated!", repository.save(tmpBilling));
+        }
+        catch (Exception ex) {
+            return new BillingResponse(true, "Operation failed", null);
+        }
+    }
+
+    @Override
+    public BillingResponse getBillingAccountById(long id) {
+        try {
+            Optional<BillingAccount> tmpBillingAccount = repository.findById(id);
+            if(!tmpBillingAccount.isPresent()) throw new Exception();
+            return new BillingResponse(true, "OK", tmpBillingAccount.get());
+        }
+        catch (Exception ex) {
+            return new BillingResponse(false, "Billing account not founded", null);
+        }
+
     }
 
     @Override

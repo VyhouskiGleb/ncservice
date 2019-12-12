@@ -1,26 +1,15 @@
-package com.netcracker.edu.fapi.models.responce;
+package com.netcracker.edu.fapi.dto;
 
 import com.netcracker.edu.fapi.models.Movie;
 
-import java.util.ArrayList;
-
-public class MovieListResponse {
-    private boolean status;
+public class MovieListResponse extends Response{
     private long counter;
     private Movie[] movies;
 
-    public MovieListResponse(boolean status, long counter, Movie[] movies) {
-        this.status = status;
+    public MovieListResponse(boolean status, String message, long counter, Movie[] movies) {
+        super(status, message);
         this.counter = counter;
         this.movies = movies;
-    }
-
-    public boolean isStatus() {
-        return status;
-    }
-
-    public void setStatus(boolean status) {
-        this.status = status;
     }
 
     public long getCounter() {

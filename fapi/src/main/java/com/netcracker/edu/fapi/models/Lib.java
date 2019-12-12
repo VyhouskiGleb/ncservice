@@ -9,7 +9,7 @@ public class Lib {
     private long userId;
     private long utcEnd;
     private String status;
-    private Movie movie = new Movie();
+    private Movie movie;
 
     public long getId() {
         return id;
@@ -51,10 +51,9 @@ public class Lib {
         this.movie = movie;
     }
 
-    public Lib(long id, long userId, long utcEnd, String status, Movie movie) {
+    public Lib(long id, long userId, String status, Movie movie) {
         this.id = id;
         this.userId = userId;
-        this.utcEnd = utcEnd;
         this.status = status;
         this.movie = movie;
     }

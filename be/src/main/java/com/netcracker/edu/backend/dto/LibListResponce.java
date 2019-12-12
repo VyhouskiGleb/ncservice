@@ -6,6 +6,16 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class LibListResponce extends Responce {
+    private long counter = 0;
+
+    public long getCounter() {
+        return counter;
+    }
+
+    public void setCounter(long counter) {
+        this.counter = counter;
+    }
+
     private List<Library> data = new ArrayList<Library>();
 
     @Override
@@ -23,8 +33,9 @@ public class LibListResponce extends Responce {
         this.data = data;
     }
 
-    public LibListResponce(boolean status, String message, List<Library> data) {
+    public LibListResponce(boolean status, String message, long counter, List<Library> data) {
         super(status, message);
+        this.counter = counter;
         this.data = data;
     }
 }

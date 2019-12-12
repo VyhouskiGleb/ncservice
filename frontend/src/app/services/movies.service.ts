@@ -3,49 +3,54 @@ import {Movie} from '../interfaces/movie';
 import { Observable } from 'rxjs';
 import { map } from 'rxjs/operators';
 import {HttpClientService} from './http-client.service';
-declare var require: any;
-const hl = require('../document.json');
+import {UserService} from "../providers/user.service";
 
-@Injectable({
-  providedIn: 'root'
-})
+@Injectable({providedIn: 'root'})
 export class MoviesService {
-  private movieArray: Movie[];
-  private moviesList = hl.content;
 
-  constructor(private shttp: HttpClientService) {}
+  constructor(private http: HttpClientService, private userService: UserService) {}
   getList(end: number, search: string): Observable<Movie[]> {
-    return this.shttp.get('http://localhost:3808/api/movies/get-all?end=' + end + '&search=' + search).pipe(map((data) => {
-      console.log(data);
+    return this.http.get('http://localhost:3808/api/movies/list?page=0&per=' + end).pipe(map((data) => {;
       return data;
     }));
   }
-  getCounter(): Observable<any> {
-    return this.shttp.get('http://localhost:8006/api/get-movies/get-counter').pipe(map((data) => {
-      console.log(data);
+  unsubscribe(id:number, item:any) : Observable<any> {
+    return this.http.put('http://localhost:3808/api/lib/' + id, item).pipe(map((data) => {;
+      return data;
+    }));
+  }
+  addToLib(item): Observable<any> {
+    let user = this.userService.getDefaultUser();
+    let tmp = {
+      userId: user.id,
+      status: "active",
+      movie: {
+        id: item.id
+      }
+    };
+    console.log(tmp);
+    return this.http.post("http://localhost:3808/api/lib",tmp).pipe(map((data) => {
       return data;
     }));
   }
   getSearchData(searchString: string): Observable<Movie[]> {
-    return this.shttp.get('http://localhost:8006/api/get-movies/search?string=' + searchString).pipe(map((data) => {
+    return this.http.get('http://localhost:3808/api/movies/search?query=' + searchString).pipe(map((data) => {
       console.log(data);
       return data;
     }));
   }
 
-  addMovie( id: number): Observable<{status: boolean}> {
-    return this.shttp.get('http://localhost:8006/api/get-lib?user=').pipe(map((data) => {
-      console.log(data);
+  getLib(start:number, perPage:number): Observable<any[]> {
+    return this.http.get('http://localhost:3808/api/lib/borders?start='+start+"&per="+perPage).pipe(map((data) => {
       return data;
     }));
   }
 
-  getLib(): Observable<any[]> {
-    const userId = 1;
-    return this.shttp.get('http://localhost:8006/api/get-lib').pipe(map((data) => {
-      console.log(data);
+  getLibWithStatus(start:number, perPage:number, status: string): Observable<any[]> {
+    return this.http.get('http://localhost:3808/api/lib/user-lib?start='+start+"&per="+perPage).pipe(map((data) => {
       return data;
     }));
   }
+
 
 }

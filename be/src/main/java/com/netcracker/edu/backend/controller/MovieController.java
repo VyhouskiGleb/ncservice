@@ -22,9 +22,9 @@ public class MovieController {
     public long getCounter() { return movieServices.getCounter();}
 
     @GetMapping("/counter/{query}")
-    public long getCounter(@PathVariable(name = "query") String query) { return movieServices.getCounter(query);}
+    public long geQuerytCounter(@PathVariable(name = "query") String query) { return movieServices.getCounter(query);}
 
-    @GetMapping("/{query}")
+    @GetMapping("/search/{query}")
     public List<Movie> getList(@PathVariable(name = "query") String query) {
         return movieServices.get(query);
     }

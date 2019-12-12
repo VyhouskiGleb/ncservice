@@ -1,13 +1,12 @@
 package com.netcracker.edu.fapi.service;
 
+import com.netcracker.edu.fapi.dto.BillingAccountResponse;
 import com.netcracker.edu.fapi.models.BillingAccountViewModel;
 import org.springframework.http.ResponseEntity;
 
 import java.util.List;
 
 public interface BillingAccountDataService {
-    List<BillingAccountViewModel> getAll();
-    BillingAccountViewModel getBillingAccountById(Long id);
-    BillingAccountViewModel saveBillingAccount(BillingAccountViewModel account);
-    void deleteBillingAccount(Long id);
+    BillingAccountResponse updateBillingAccount(String userName, double money, BillingAccountViewModel account);
+    BillingAccountResponse getUserBillingAccount(String userName);
 }

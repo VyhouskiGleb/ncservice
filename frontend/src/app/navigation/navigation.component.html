@@ -3,12 +3,14 @@
     <div class="navigation__logo_div">
         <img alt="alt" title="title" src="https://via.placeholder.com/200x200"/>
     </div>
+
     <div class="navigation__main_container">
+        <app-user-details></app-user-details>
         <app-btn class="nav__controls_btn" [routerLink]="['']" background="#6746C3" icon="view_module" btntitle="Main" width = "90%" height="45px"></app-btn>
-        <app-btn class="nav__controls_btn" [routerLink]="['/history']" background="#6746C3" icon="history" btntitle="Acc history" width = "90%" height="45px"></app-btn>
-        <app-btn class="nav__controls_btn" [routerLink]="['/settings']" background="#6746C3" icon="settings_applications" btntitle="Acc settings" width = "90%" height="45px"></app-btn>
+        <app-btn class="nav__controls_btn" [routerLink]="['/history']" background="#6746C3" icon="history" btntitle="History" width = "90%" height="45px"></app-btn>
+        <app-btn class="nav__controls_btn" [routerLink]="['/refill']" background="#6746C3" icon="account_balance_wallet" btntitle="Refill balance" width = "90%" height="45px"></app-btn>
     </div>
     <div class="navigation__logout_controls">
-        <app-btn class="logout_button_container" btntitle="Logout" hoverBackground="#4F5B62" fontHoverColor="#FFFFFF" fontColor="#4F5B62" background="#EEEEEE" width="90%" height="55px" icon="exit_to_app"></app-btn>
+        <app-btn (click)="onLogOut($event)" class="logout_button_container" btntitle="Logout" hoverBackground="#4F5B62" fontHoverColor="#FFFFFF" fontColor="#4F5B62" background="#EEEEEE" width="90%" height="55px" icon="exit_to_app"></app-btn>
     </div>
 </div>

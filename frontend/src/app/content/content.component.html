@@ -5,5 +5,5 @@
     </div>
 </div>
 <app-hirelist [page]="globalPage" (onLoadStatus) = "loadEvent($event)" *appTab="{tabId: 1,  currentTabId: tabstate}"></app-hirelist>
-<app-library *appTab="{tabId: 2,  currentTabId: tabstate}"></app-library>
+<app-library  [page]="globalPage" *appTab="{tabId: 2,  currentTabId: tabstate}"></app-library>
 

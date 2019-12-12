@@ -5,6 +5,7 @@ import com.netcracker.edu.fapi.models.AuthToken;
 import com.netcracker.edu.fapi.models.LoginUser;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.Authentication;
@@ -33,6 +34,14 @@ public class AuthenticationController {
         SecurityContextHolder.getContext().setAuthentication(authentication);
         String token = tokenProvider.generateToken(authentication);
         UserDetails userDetails = (UserDetails) authentication.getPrincipal();
-        return ResponseEntity.ok(new AuthToken(token));
+        return ResponseEntity.ok(new AuthToken(token, userDetails.getUsername()));
+    }
+
+    @PreAuthorize("hasRole('user') or hasRole('admin')")
+    @GetMapping("/validate")
+    public boolean validateToken(@RequestParam(name = "token") String token) {
+        Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+        System.out.println(authentication.getPrincipal().toString());
+        return false;
     }
 }

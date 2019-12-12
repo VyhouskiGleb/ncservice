@@ -21,26 +21,22 @@ export class HirelistComponent implements OnInit, OnChanges, OnDestroy {
 
   constructor(private moviesService: MoviesService) { }
   ngOnInit() {
-    this.sub = this.moviesService.getList(this.page * this.perPage, this.searchString).subscribe((data: Movie[]) => {
+    this.sub = this.moviesService.getList(this.page * this.perPage, this.searchString).subscribe((data:any) => {
       this.activePageEvent = false;
-      this.movies = data
+      this.movies = data.movies;
+      this.itemsCounter = data.counter;
     });
-    this.count = this.moviesService.getCounter().subscribe((data: {counter: number}) => this.itemsCounter = data.counter);
   }
-
-
-
   ngOnDestroy() {
     this.sub.unsubscribe();
-    this.count.unsubscribe();
   }
-
   pageIncrement() {
     this.activePageEvent = true;
     this.sub = this.moviesService.getList(this.page * this.perPage, this.searchString).subscribe(
-      (data: Movie[]) => {
-        this.movies = data;
+      (data: any) => {
+        this.movies = data.movies;
         this.activePageEvent = false;
+        this.itemsCounter = data.counter;
     });
   }
 
@@ -51,18 +47,18 @@ export class HirelistComponent implements OnInit, OnChanges, OnDestroy {
     } else {
       this.activePageEvent = true;
       this.sub = this.moviesService.getSearchData(this.searchString).subscribe(
-        (data: Movie[]) => {
-          this.movies = data;
+        (data: any) => {
+          this.movies = data.movies;
           this.activePageEvent = false;
       });
     }
   }
   ngOnChanges(changes: SimpleChanges) {
-    if (changes.page.previousValue !== changes.page.currentValue
-      && Math.ceil(this.itemsCounter / this.perPage) >= changes.page.currentValue) {
-      this.page = changes.page.currentValue;
-      this.pageIncrement();
+    if (changes.page.previousValue !== changes.page.currentValue) {
+      if(Math.ceil(this.itemsCounter / this.perPage) >= changes.page.currentValue) {
+        this.page = changes.page.currentValue;
+        setTimeout(() => this.pageIncrement(), 500);
+      }
     }
   }
-
 }

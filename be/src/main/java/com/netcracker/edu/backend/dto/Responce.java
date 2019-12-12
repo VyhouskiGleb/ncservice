@@ -41,4 +41,7 @@ public class Responce {
         this.status = status;
         this.message = message;
     }
+
+    public Responce() {
+    }
 }

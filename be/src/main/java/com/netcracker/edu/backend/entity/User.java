@@ -19,7 +19,7 @@ public class User {
         return billing;
     }
     public void setBilling(BillingAccount billing) {
-        System.out.print("dd");this.billing = billing;
+        this.billing = billing;
     }
 
     @Id

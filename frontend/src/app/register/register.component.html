@@ -1,0 +1,39 @@
+<div class="container-fluid container__bootstrap_maincontainer">
+  <div class="row container_bootstrap_row">
+    <div class="col-11 col-sm-9 col-lg-6 col-xl-4 col-md-8 container_div_mainbox">
+      <div class="mainbox__div_logocontainer">
+        <img alt="alt" title="title" src="https://via.placeholder.com/150x150"/>
+        <div class="logo__div_textbox">
+          <h1><b>Sign UP</b> to</h1>
+          <h1><b>SCharging</b> system</h1>
+        </div>
+      </div>
+      <form class="mainbox__div__form" [formGroup]="registerForm" (ngSubmit)="submit()" >
+        <div class="alert alert-danger"
+             *ngIf="registerForm.controls['userLogin'].invalid && registerForm.controls['userLogin'].touched">
+          Enter user login
+        </div>
+        <div class="form-group">
+          <label>Login</label>
+          <input type="text" class="form-control form-control-lg" formControlName="userLogin" placeholder="Enter login">
+        </div>
+        <div class="alert alert-danger"
+             *ngIf="registerForm.controls['userPassword'].invalid && registerForm.controls['userPassword'].touched">
+          Enter user password
+        </div>
+        <div class="form-group">
+          <label >Password</label>
+          <small  class="form-text text-muted">We'll never share your password with anyone else.</small>
+          <input type="password" formControlName="userPassword" class="form-control form-control-lg" placeholder="Password">
+        </div>
+        <div class="form-group">
+          <label >Repit password</label>
+          <small  class="form-text text-muted"></small>
+          <input type="password" formControlName="userPassword" class="form-control form-control-lg" placeholder="Repit password">
+        </div>
+        <span id="passHelp" class="form-text text-muted">Оr login to <a [routerLink]="['/login']">account</a></span>
+        <!--<button [disabled]="registerForm.invalid" type="submit" class="btn btn-success btn-lg form__control_login btn-block">Register</button>-->
+      </form>
+    </div>
+  </div>
+</div>

@@ -35,8 +35,8 @@ public class UserServiceImpl implements UserService {
 
     @Override
     public User createUser(User user) {
-        BillingAccount tmpBilling = billingAccountService.saveBillingAccount(new BillingAccount());
-        System.out.println(tmpBilling.getId());
+        /*BillingAccount tmpBilling = billingAccountService.saveBillingAccount(new BillingAccount());
+        System.out.println(tmpBilling.getId());*/
         user.setBilling(billingAccountService.saveBillingAccount(new BillingAccount()));
         return userRepository.save(user);
     }

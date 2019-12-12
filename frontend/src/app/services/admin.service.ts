@@ -8,7 +8,6 @@ import {HttpClientService} from './http-client.service';
   providedIn: 'root'
 })
 export class AdminService {
-  private movieArray: Movie[];
 
   constructor(private shttp: HttpClientService) {}
   getList(currentPage:number, perPage:number,  filter: string, query: string): Observable<{
